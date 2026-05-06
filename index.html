@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Роман Абдрафиков — Сайты для малого бизнеса</title>
+  <meta name="description" content="Делаю сайты для малого бизнеса под ключ. Лендинг за 5–7 дней от 2 000 ₽.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    /* ── Variables ── */
+    :root {
+      --bg:      #ffffff;
+      --accent:  #1a1a1a;
+      --blue:    #0066ff;
+      --gray:    #f5f5f5;
+      --muted:   #6b7280;
+      --border:  #e5e7eb;
+      --font:    'Manrope', sans-serif;
+      --wrap:    1120px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--accent);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Container ── */
+    .wrap {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ────────────────────────────
+       NAV
+    ──────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+    .nav-logo {
+      font-size: .92rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--accent);
+    }
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 7px;
+      font-family: var(--font);
+      font-size: .82rem;
+      font-weight: 600;
+      transition: background .15s, transform .15s;
+    }
+    .btn-nav:hover { background: #004fcc; transform: translateY(-1px); }
+
+    /* ────────────────────────────
+       HERO
+    ──────────────────────────── */
+    .hero {
+      padding: 96px 0 88px;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-h1 {
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      max-width: 760px;
+      margin-bottom: 22px;
+    }
+    .hero-sub {
+      font-size: clamp(.95rem, 1.8vw, 1.08rem);
+      color: var(--muted);
+      max-width: 460px;
+      margin-bottom: 40px;
+      line-height: 1.72;
+    }
+    .hero-sub strong { color: var(--accent); font-weight: 700; }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 28px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: .95rem;
+      font-weight: 700;
+      transition: background .15s, transform .2s, box-shadow .2s;
+    }
+    .btn-cta:hover {
+      background: #004fcc;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,102,255,.28);
+    }
+    .hero-meta {
+      margin-top: 18px;
+      font-size: .78rem;
+      color: #b3b3b3;
+      letter-spacing: .01em;
+    }
+
+    /* ────────────────────────────
+       WORKS
+    ──────────────────────────── */
+    #works {
+      padding: 80px 0 96px;
+      border-top: 1px solid var(--border);
+    }
+    .works-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .sec-label {
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .sec-count {
+      font-size: .7rem;
+      color: #c5c5c5;
+      font-weight: 500;
+    }
+
+    .works-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 56px rgba(0,0,0,.09);
+    }
+
+    /* ── Preview base ── */
+    .preview {
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════
+       IRON & BLADE preview
+    ══════════════════════════ */
+    .p-ib {
+      background: #0d0d0d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Scanline + radial glow */
+    .p-ib::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(201,168,76,.007) 3px, rgba(201,168,76,.007) 4px),
+        radial-gradient(ellipse 70% 65% at 60% 50%, rgba(201,168,76,.13) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    /* Ghost numeral */
+    .p-ib::after {
+      content: 'IX';
+      position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 10rem;
+      font-weight: 800;
+      color: rgba(201,168,76,.038);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .ib-body {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 0 56px 0 40px;
+    }
+    .ib-kicker {
+      display: flex; align-items: center; gap: 10px;
+      justify-content: center;
+      font-size: .48rem;
+      letter-spacing: .36em;
+      color: #c9a84c;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .ib-kicker::before, .ib-kicker::after {
+      content: ''; flex: 0 0 24px; height: 1px; background: rgba(201,168,76,.55);
+    }
+    .ib-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: .88;
+      letter-spacing: -.01em;
+      color: #ece5d2;
+    }
+    .ib-title em { display: block; color: #c9a84c; font-style: normal; }
+    /* Diamond divider */
+    .ib-div {
+      display: flex; align-items: center; gap: 10px;
+      justify-content: center;
+      margin: 14px auto;
+      max-width: 140px;
+    }
+    .ib-div::before { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,.65)); }
+    .ib-div::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(270deg, transparent, rgba(201,168,76,.65)); }
+    .ib-diamond { width: 5px; height: 5px; background: #c9a84c; transform: rotate(45deg); flex-shrink: 0; }
+    /* Button mock */
+    .ib-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 20px;
+      background: #c9a84c;
+      color: #0d0d0d;
+      font-size: .5rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    /* Concentric circles ornament */
+    .ib-orn {
+      position: absolute; right: 26px; top: 50%;
+      transform: translateY(-50%);
+      width: 78px; height: 78px;
+      pointer-events: none;
+    }
+    .ib-c {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.13);
+    }
+    .ib-c:nth-child(1) { inset: 0; }
+    .ib-c:nth-child(2) { inset: 15%; border-color: rgba(201,168,76,.08); }
+    .ib-c:nth-child(3) { inset: 30%; background: rgba(201,168,76,.025); border-color: rgba(201,168,76,.2); }
+
+    /* ══════════════════════════
+       Dental Pro preview
+    ══════════════════════════ */
+    .p-dp {
+      background: #f8f7f4;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Nav bar */
+    .dp-bar {
+      display: flex; align-items: center;
+      gap: 8px;
+      height: 42px;
+      background: #fff;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      padding: 0 20px;
+      flex-shrink: 0;
+    }
+    .dp-dot { width: 8px; height: 8px; border-radius: 50%; background: #2a5f8f; flex-shrink: 0; }
+    .dp-brand { font-size: .58rem; font-weight: 700; color: #1a2e45; letter-spacing: .04em; }
+    .dp-bar-links { margin-left: auto; display: flex; gap: 10px; }
+    .dp-bar-links span { display: block; width: 22px; height: 3px; background: #dde1e7; border-radius: 2px; }
+    /* Centred content area */
+    .dp-body {
+      flex: 1;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 20px;
+      padding: 16px 20px;
+    }
+    /* CSS rings + tooth — replica of actual site illustration */
+    .dp-illus {
+      position: relative;
+      width: 110px; height: 110px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dp-ring { position: absolute; border-radius: 50%; }
+    .dp-ring:nth-child(1) { inset: 0; border: 1.5px solid rgba(42,95,143,.2); }
+    .dp-ring:nth-child(2) { inset: 16%; border: 1.5px solid rgba(42,95,143,.13); }
+    .dp-ring:nth-child(3) { inset: 31%; background: rgba(42,95,143,.06); border: 1.5px solid rgba(42,95,143,.3); }
+    .dp-tooth {
+      position: relative; z-index: 1;
+      width: 15px; height: 21px;
+      background: #2a5f8f;
+      border-radius: 6px 6px 7px 7px;
+    }
+    .dp-tooth::after {
+      content: '';
+      position: absolute; bottom: -6px; left: 2px; right: 2px; height: 7px;
+      background: #2a5f8f; border-radius: 0 0 4px 4px;
+    }
+    /* Stats row */
+    .dp-stats { display: flex; gap: 18px; }
+    .dp-stat { text-align: center; }
+    .dp-stat-n { font-size: .88rem; font-weight: 800; color: #1a2e45; line-height: 1; }
+    .dp-stat-l { font-size: .38rem; color: rgba(0,0,0,.4); letter-spacing: .04em; margin-top: 2px; }
+    /* Floating badge cards — replica of actual site */
+    .dp-float {
+      position: absolute;
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 11px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+      font-size: .46rem;
+      font-weight: 700;
+      color: #1a2e45;
+      white-space: nowrap;
+    }
+    .dp-float::before { content: '✓ '; color: #2a5f8f; }
+    .dp-float:nth-child(3) { top: 12px; left: 12px; }
+    .dp-float:nth-child(4) { bottom: 12px; right: 12px; }
+
+    /* ══════════════════════════
+       БЫСТРО preview
+    ══════════════════════════ */
+    .p-by {
+      background: linear-gradient(135deg, #ff4500 0%, #ff6a00 55%, #ff9300 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Decorative circles — as in actual site's promo section */
+    .p-by::before {
+      content: '';
+      position: absolute;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      top: -140px; left: -80px;
+      pointer-events: none;
+    }
+    .p-by::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      bottom: -90px; right: -60px;
+      pointer-events: none;
+    }
+    .by-body {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 0 32px;
+    }
+    .by-label {
+      display: inline-block;
+      background: rgba(255,255,255,.22);
+      color: #fff;
+      font-size: .44rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .by-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -.02em;
+      text-shadow: 0 2px 16px rgba(0,0,0,.12);
+      margin-bottom: 12px;
+    }
+    /* Promo code — replica of actual site */
+    .by-code {
+      display: inline-block;
+      background: #fff;
+      color: #ff4500;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      padding: 7px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.15);
+      margin-bottom: 14px;
+    }
+    /* Timer */
+    .by-timer {
+      display: flex; align-items: center; gap: 4px;
+      justify-content: center;
+    }
+    .by-t {
+      background: rgba(0,0,0,.22);
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 30px;
+      text-align: center;
+    }
+    .by-sep { color: rgba(255,255,255,.65); font-weight: 700; font-size: .8rem; }
+
+    /* ── Card info panel ── */
+    .card-info {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--border);
+    }
+    .c-num {
+      font-size: .68rem;
+      font-weight: 600;
+      color: #d0d0d0;
+      letter-spacing: .1em;
+      margin-bottom: 18px;
+    }
+    .c-name {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .c-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .c-stack {
+      font-size: .73rem;
+      color: #c0c0c0;
+      letter-spacing: .04em;
+      margin-bottom: 28px;
+    }
+    .c-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--blue);
+      transition: gap .2s;
+    }
+    .c-link::after { content: '→'; }
+    .c-link:hover { gap: 10px; }
+
+    /* ────────────────────────────
+       CONTACT
+    ──────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--border);
+      background: var(--gray);
+      padding: 80px 0;
+    }
+    .contact-body {
+      max-width: 540px;
+    }
+    .contact-h {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+    .contact-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .contact-row {
+      font-size: .95rem;
+      color: var(--muted);
+    }
+    .contact-row a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .contact-row a:hover { color: var(--blue); }
+    .btn-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 18px 32px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 9px;
+      font-family: var(--font);
+      font-size: .95rem;
+      font-weight: 700;
+      transition: background .15s, transform .2s, box-shadow .2s;
+    }
+    .btn-big:hover {
+      background: #004fcc;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0,102,255,.28);
+    }
+
+    /* ────────────────────────────
+       FOOTER
+    ──────────────────────────── */
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-line {
+      font-size: .78rem;
+      color: #b8b8b8;
+    }
+
+    /* ────────────────────────────
+       RESPONSIVE
+    ──────────────────────────── */
+    @media (max-width: 860px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+      .card-info {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 28px 24px;
+      }
+      .preview { min-height: 260px; }
+      .ib-orn { display: none; }
+    }
+
+    @media (max-width: 680px) {
+      .wrap { padding: 0 20px; }
+      .hero { padding: 72px 0 64px; }
+      #works { padding: 60px 0 72px; }
+      #contact { padding: 64px 0; }
+      .dp-float { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-h1 { letter-spacing: -.025em; }
+      .ib-title { font-size: 2.2rem; }
+      .by-title  { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <div class="wrap">
+    <div class="nav-inner">
+      <span class="nav-logo">Роман Абдрафиков</span>
+      <a href="https://t.me/rnosko" class="btn-nav" target="_blank" rel="noopener">
+        Написать в Telegram
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-label">Фриланс · Веб-разработка</span>
+    <h1 class="hero-h1">Сайты для малого бизнеса под ключ</h1>
+    <p class="hero-sub">
+      Лендинг за 5–7 дней <strong>от 2 000 ₽.</strong><br>
+      Дизайн, вёрстка, адаптив — всё включено.
+    </p>
+    <a href="https://t.me/rnosko" class="btn-cta" target="_blank" rel="noopener">
+      Обсудить проект
+    </a>
+    <p class="hero-meta">Роман Абдрафиков &nbsp;·&nbsp; reminso@proton.me</p>
+  </div>
+</section>
+
+<!-- ══════ WORKS ══════ -->
+<section id="works">
+  <div class="wrap">
+    <div class="works-head">
+      <span class="sec-label">Работы</span>
+      <span class="sec-count">3 проекта</span>
+    </div>
+
+    <div class="works-list">
+
+      <!-- ── 01 IRON & BLADE ── -->
+      <article class="card">
+        <div class="preview p-ib" aria-hidden="true">
+          <div class="ib-body">
+            <div class="ib-kicker">Барбершоп · Москва</div>
+            <div class="ib-title">IRON<em>&amp; BLADE</em></div>
+            <div class="ib-div"><div class="ib-diamond"></div></div>
+            <div class="ib-btn">Записаться</div>
+          </div>
+          <div class="ib-orn" aria-hidden="true">
+            <div class="ib-c"></div>
+            <div class="ib-c"></div>
+            <div class="ib-c"></div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="c-num">01</div>
+          <h2 class="c-name">IRON &amp; BLADE</h2>
+          <p class="c-desc">Лендинг барбершопа: тёмный брутальный стиль, прайс-лист, карточки мастеров, форма записи.</p>
+          <div class="c-stack">HTML · CSS · JS</div>
+          <a href="ironblade/index.html" class="c-link" target="_blank" rel="noopener">Смотреть проект</a>
+        </div>
+      </article>
+
+      <!-- ── 02 Dental Pro ── -->
+      <article class="card">
+        <div class="preview p-dp" aria-hidden="true">
+          <div class="dp-bar">
+            <div class="dp-dot"></div>
+            <span class="dp-brand">Dental Pro</span>
+            <div class="dp-bar-links">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="dp-body">
+            <div class="dp-illus">
+              <div class="dp-ring"></div>
+              <div class="dp-ring"></div>
+              <div class="dp-ring"></div>
+              <div class="dp-tooth"></div>
+            </div>
+            <div class="dp-stats">
+              <div class="dp-stat">
+                <div class="dp-stat-n">15+</div>
+                <div class="dp-stat-l">лет опыта</div>
+              </div>
+              <div class="dp-stat">
+                <div class="dp-stat-n">8K+</div>
+                <div class="dp-stat-l">пациентов</div>
+              </div>
+              <div class="dp-stat">
+                <div class="dp-stat-n">98%</div>
+                <div class="dp-stat-l">довольны</div>
+              </div>
+            </div>
+            <div class="dp-float">Безболезненно</div>
+            <div class="dp-float">Гарантия 5 лет</div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="c-num">02</div>
+          <h2 class="c-name">Dental Pro</h2>
+          <p class="c-desc">Двухстраничный сайт стоматологии: главная, услуги с ценами, форма онлайн-записи.</p>
+          <div class="c-stack">HTML · CSS · JS</div>
+          <a href="dentalblade/index.html" class="c-link" target="_blank" rel="noopener">Смотреть проект</a>
+        </div>
+      </article>
+
+      <!-- ── 03 БЫСТРО ── -->
+      <article class="card">
+        <div class="preview p-by" aria-hidden="true">
+          <div class="by-body">
+            <div class="by-label">Горящее предложение</div>
+            <div class="by-title">БЫСТРО.</div>
+            <div class="by-code">БЫСТРО20</div>
+            <div class="by-timer">
+              <div class="by-t" id="t-h">23</div>
+              <span class="by-sep">:</span>
+              <div class="by-t" id="t-m">59</div>
+              <span class="by-sep">:</span>
+              <div class="by-t" id="t-s">41</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="c-num">03</div>
+          <h2 class="c-name">БЫСТРО</h2>
+          <p class="c-desc">Лендинг доставки еды: анимированные CSS-элементы, таймер акции, форма заказа.</p>
+          <div class="c-stack">HTML · CSS · JS</div>
+          <a href="bystroblade/index.html" class="c-link" target="_blank" rel="noopener">Смотреть проект</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-body">
+      <h2 class="contact-h">Есть задача?</h2>
+      <div class="contact-rows">
+        <div class="contact-row">
+          Telegram: <a href="https://t.me/rnosko" target="_blank" rel="noopener">@rnosko</a>
+        </div>
+        <div class="contact-row">
+          Email: <a href="mailto:reminso@proton.me">reminso@proton.me</a>
+        </div>
+      </div>
+      <a href="https://t.me/rnosko" class="btn-big" target="_blank" rel="noopener">
+        Написать в Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="wrap">
+    <p class="footer-line">© 2026 Роман Абдрафиков</p>
+  </div>
+</footer>
+
+<script>
+  // Countdown timer inside БЫСТРО preview card
+  const th = document.getElementById('t-h');
+  const tm = document.getElementById('t-m');
+  const ts = document.getElementById('t-s');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  let h = 23, m = 59, s = 41;
+  setInterval(() => {
+    if (--s < 0) { s = 59; if (--m < 0) { m = 59; if (--h < 0) h = 23; } }
+    th.textContent = pad(h);
+    tm.textContent = pad(m);
+    ts.textContent = pad(s);
+  }, 1000);
+</script>
+
+</body>
+</html>
