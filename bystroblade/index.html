@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>БЫСТРО — Доставка еды за 30 минут</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Unbounded:wght@700;900&display=swap');
+
+    /* ── Custom properties ── */
+    :root {
+      --orange:   #ff4500;
+      --orange2:  #ff6a00;
+      --dark:     #1c1c1c;
+      --dark2:    #252525;
+      --white:    #ffffff;
+      --gray:     #f5f5f5;
+      --text:     #333333;
+      --muted:    #888888;
+
+      --font-display: 'Unbounded', sans-serif;
+      --font-body:    'Nunito', sans-serif;
+
+      --radius:   16px;
+      --radius-lg: 28px;
+      --shadow:   0 8px 32px rgba(255,69,0,.18);
+      --transition: .25s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Utility ── */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.03); }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .btn-primary:hover { box-shadow: 0 12px 40px rgba(255,69,0,.4); }
+    .btn-outline {
+      background: transparent;
+      color: var(--orange);
+      border: 2.5px solid var(--orange);
+    }
+    .btn-outline:hover { background: var(--orange); color: var(--white); }
+    .section-tag {
+      display: inline-block;
+      background: rgba(255,69,0,.12);
+      color: var(--orange);
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--dark);
+    }
+    .section-title span { color: var(--orange); }
+
+    /* ══════════════════════════════════
+       1. NAV
+    ══════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(255,69,0,.1);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--dark);
+      letter-spacing: -.02em;
+    }
+    .nav__logo span { color: var(--orange); }
+    .nav__links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav__links a {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--dark);
+      transition: color var(--transition);
+    }
+    .nav__links a:hover { color: var(--orange); }
+    .nav__cta { font-size: .9rem; padding: 10px 24px; }
+    /* Mobile nav */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav__burger span {
+      display: block;
+      width: 24px; height: 3px;
+      background: var(--dark);
+      border-radius: 3px;
+      transition: var(--transition);
+    }
+    .nav__mobile {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--dark);
+    }
+
+    @media (max-width: 768px) {
+      .nav__links, .nav__cta { display: none; }
+      .nav__burger { display: flex; }
+    }
+
+    /* ══════════════════════════════════
+       2. HERO
+    ══════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      padding-top: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Фоновая декорация */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,69,0,.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 60px 0;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .hero__badge::before {
+      content: '🔥';
+      font-size: 1rem;
+    }
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .hero__title .accent { color: var(--orange); }
+    .hero__subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+    .hero__stats {
+      display: flex;
+      gap: 32px;
+    }
+    .hero__stat-num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .hero__stat-label {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* CSS-иллюстрация */
+    .hero__art {
+      position: relative;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Большой круг — «тарелка» */
+    .art-plate {
+      position: absolute;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe0d0 100%);
+      border: 6px solid rgba(255,69,0,.2);
+      box-shadow: 0 20px 60px rgba(255,69,0,.15);
+      animation: float 4s ease-in-out infinite;
+    }
+    /* Круги-«ингредиенты» */
+    .art-blob {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 4s ease-in-out infinite;
+    }
+    .art-blob--1 {
+      width: 100px; height: 100px;
+      background: var(--orange);
+      top: 60px; right: 80px;
+      animation-delay: .4s;
+    }
+    .art-blob--2 {
+      width: 60px; height: 60px;
+      background: #ffcc00;
+      top: 30px; left: 100px;
+      animation-delay: .8s;
+    }
+    .art-blob--3 {
+      width: 80px; height: 80px;
+      background: #ff6a00;
+      bottom: 80px; right: 60px;
+      animation-delay: 1.2s;
+    }
+    .art-blob--4 {
+      width: 45px; height: 45px;
+      background: #1c1c1c;
+      bottom: 100px; left: 70px;
+      animation-delay: .2s;
+    }
+    /* Волна */
+    .art-wave {
+      position: absolute;
+      width: 200px; height: 200px;
+      border: 8px solid var(--orange);
+      border-radius: 50%;
+      opacity: .15;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 2.5s ease-out infinite;
+    }
+    .art-wave:nth-child(2) { animation-delay: .8s; }
+    /* Квадрат-«упаковка» */
+    .art-box {
+      position: absolute;
+      width: 90px; height: 90px;
+      background: var(--dark);
+      border-radius: 20px;
+      bottom: 50px; left: 40px;
+      transform: rotate(20deg);
+      animation: wobble 3s ease-in-out infinite;
+    }
+    .art-box::after {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      background: var(--orange);
+      border-radius: 10px;
+    }
+    /* Треугольник-«кусочек» */
+    .art-triangle {
+      position: absolute;
+      top: 40px; right: 40px;
+      width: 0; height: 0;
+      border-left: 36px solid transparent;
+      border-right: 36px solid transparent;
+      border-bottom: 62px solid #ffcc00;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.15));
+      animation: float 3.5s ease-in-out infinite;
+      animation-delay: 1.5s;
+    }
+    /* Центральная иконка-смайл */
+    .art-emoji {
+      position: relative;
+      z-index: 2;
+      font-size: 7rem;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.15));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: .15; }
+      100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; }
+    }
+    @keyframes wobble {
+      0%,100% { transform: rotate(20deg); }
+      50%      { transform: rotate(25deg) translateY(-8px); }
+    }
+
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; text-align: center; }
+      .hero__subtitle { margin-inline: auto; }
+      .hero__actions { justify-content: center; }
+      .hero__stats { justify-content: center; }
+      .hero__art { height: 340px; }
+    }
+
+    /* ══════════════════════════════════
+       3. КАК ЭТО РАБОТАЕТ
+    ══════════════════════════════════ */
+    .how {
+      background: var(--dark);
+      padding: 100px 0;
+    }
+    .how .section-title { color: var(--white); }
+    .how__head { text-align: center; margin-bottom: 60px; }
+    .how__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .how__step {
+      background: var(--dark2);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      border: 1.5px solid rgba(255,255,255,.07);
+      position: relative;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .how__step:hover { transform: translateY(-8px); border-color: var(--orange); }
+    .how__step-num {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.05);
+      line-height: 1;
+    }
+    .how__icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: var(--shadow);
+    }
+    .how__icon svg { fill: white; width: 36px; height: 36px; }
+    .how__step-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .how__step-text {
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .how__steps { grid-template-columns: 1fr; max-width: 400px; margin-inline: auto; }
+    }
+
+    /* ══════════════════════════════════
+       4. КАТЕГОРИИ
+    ══════════════════════════════════ */
+    .categories { padding: 100px 0; }
+    .categories__head { text-align: center; margin-bottom: 60px; }
+    .categories__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .cat-card {
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: pop-in .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    .cat-card:nth-child(1) { animation-delay: .05s; }
+    .cat-card:nth-child(2) { animation-delay: .10s; }
+    .cat-card:nth-child(3) { animation-delay: .15s; }
+    .cat-card:nth-child(4) { animation-delay: .20s; }
+    .cat-card:nth-child(5) { animation-delay: .25s; }
+    .cat-card:nth-child(6) { animation-delay: .30s; }
+    @keyframes pop-in {
+      from { opacity:0; transform: scale(.8) translateY(20px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+    .cat-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+    }
+    /* Цветовые схемы карточек */
+    .cat-card--1 { background: linear-gradient(135deg, #ff4500, #ff6a00); color: #fff; }
+    .cat-card--2 { background: linear-gradient(135deg, #e63946, #c1121f); color: #fff; }
+    .cat-card--3 { background: linear-gradient(135deg, #023e8a, #0077b6); color: #fff; }
+    .cat-card--4 { background: linear-gradient(135deg, #588157, #3a5a40); color: #fff; }
+    .cat-card--5 { background: linear-gradient(135deg, #606c38, #283618); color: #fff; }
+    .cat-card--6 { background: linear-gradient(135deg, #9b2226, #ae2012); color: #fff; }
+
+    .cat-card__emoji {
+      font-size: 3.2rem;
+      margin-bottom: 14px;
+      display: block;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.2));
+      transition: transform var(--transition);
+    }
+    .cat-card:hover .cat-card__emoji { transform: scale(1.2) rotate(-5deg); }
+    .cat-card__name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .cat-card__meta {
+      font-size: .85rem;
+      opacity: .8;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .categories__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .categories__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════
+       5. ПОЧЕМУ МЫ
+    ══════════════════════════════════ */
+    .why {
+      background: var(--gray);
+      padding: 100px 0;
+    }
+    .why__head { text-align: center; margin-bottom: 60px; }
+    .why__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .why-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(255,69,0,.12);
+      border-color: rgba(255,69,0,.2);
+    }
+    .why-card__icon {
+      width: 60px; height: 60px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .why-card__icon svg { fill: white; width: 28px; height: 28px; }
+    .why-card__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .why-card__text {
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .why__grid { grid-template-columns: 1fr; }
+      .why-card { padding: 28px 24px; }
+    }
+
+    /* ══════════════════════════════════
+       6. АКЦИЯ + ТАЙМЕР
+    ══════════════════════════════════ */
+    .promo {
+      background: linear-gradient(135deg, var(--orange) 0%, #ff6a00 60%, #ffcc00 100%);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .promo::before, .promo::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+    }
+    .promo::before { width: 400px; height: 400px; top: -150px; left: -100px; }
+    .promo::after  { width: 300px; height: 300px; bottom: -100px; right: -80px; }
+    .promo__label {
+      display: inline-block;
+      background: rgba(255,255,255,.25);
+      color: var(--white);
+      font-weight: 800;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+    .promo__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+    .promo__subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,.9);
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .promo__code {
+      display: inline-block;
+      background: var(--white);
+      color: var(--orange);
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      padding: 14px 36px;
+      border-radius: 16px;
+      letter-spacing: .08em;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.15);
+      cursor: pointer;
+      transition: transform var(--transition);
+      position: relative;
+    }
+    .promo__code:hover { transform: scale(1.05); }
+    .promo__code-tip {
+      position: absolute;
+      top: -32px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.7);
+      color: #fff;
+      font-size: .72rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .promo__code:hover .promo__code-tip { opacity: 1; }
+
+    /* Таймер */
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .timer__block {
+      background: rgba(0,0,0,.2);
+      border-radius: 16px;
+      padding: 16px 24px;
+      min-width: 80px;
+      backdrop-filter: blur(8px);
+    }
+    .timer__num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      display: block;
+    }
+    .timer__label {
+      font-size: .72rem;
+      color: rgba(255,255,255,.75);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 4px;
+    }
+    .timer__sep {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.6);
+      align-self: center;
+      padding-bottom: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .timer { gap: 8px; }
+      .timer__block { padding: 12px 14px; min-width: 60px; }
+      .timer__num { font-size: 1.8rem; }
+    }
+
+    /* ══════════════════════════════════
+       7. ЗОНА ДОСТАВКИ
+    ══════════════════════════════════ */
+    .zone { padding: 100px 0; }
+    .zone__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .zone__title { margin-bottom: 16px; }
+    .zone__text {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .zone__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .zone__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--dark);
+    }
+    .zone__item::before {
+      content: '';
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    /* CSS-карта */
+    .zone__map {
+      background: var(--gray);
+      border-radius: var(--radius-lg);
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .zone__map-blob {
+      width: 260px; height: 220px;
+      background: linear-gradient(135deg, rgba(255,69,0,.25), rgba(255,106,0,.15));
+      border: 3px solid rgba(255,69,0,.3);
+      border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+      position: relative;
+      animation: morph 8s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%,100% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+      50%      { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
+    }
+    .zone__map-pin {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      font-size: 2.5rem;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.2));
+      animation: pin-bounce 1.2s ease-in-out infinite;
+    }
+    @keyframes pin-bounce {
+      0%,100% { transform: translate(-50%, -60%); }
+      50%      { transform: translate(-50%, -75%); }
+    }
+    /* Декоративные точки-"улицы" */
+    .zone__map-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,69,0,.5);
+    }
+    .zone__map-dot:nth-child(1) { top: 30%; left: 20%; }
+    .zone__map-dot:nth-child(2) { top: 60%; left: 30%; }
+    .zone__map-dot:nth-child(3) { top: 25%; right: 25%; }
+    .zone__map-dot:nth-child(4) { bottom: 28%; right: 20%; }
+    .zone__map-dot:nth-child(5) { bottom: 22%; left: 40%; }
+
+    @media (max-width: 768px) {
+      .zone__inner { grid-template-columns: 1fr; }
+      .zone__map { height: 280px; }
+    }
+
+    /* ══════════════════════════════════
+       8. ФОРМА ЗАКАЗА
+    ══════════════════════════════════ */
+    .order-form {
+      background: var(--dark);
+      padding: 100px 0;
+    }
+    .order-form__inner {
+      max-width: 640px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    .order-form .section-title { color: var(--white); margin-bottom: 12px; }
+    .order-form__desc {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 48px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form__field {
+      position: relative;
+    }
+    .form__input {
+      width: 100%;
+      padding: 18px 22px;
+      background: rgba(255,255,255,.06);
+      border: 1.5px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .form__input::placeholder { color: rgba(255,255,255,.35); }
+    .form__input:focus {
+      border-color: var(--orange);
+      background: rgba(255,69,0,.07);
+    }
+    .form__submit {
+      margin-top: 8px;
+      width: 100%;
+      justify-content: center;
+      padding: 18px;
+      font-size: 1.05rem;
+    }
+    .form__note {
+      font-size: .82rem;
+      color: rgba(255,255,255,.35);
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    /* ══════════════════════════════════
+       9. FOOTER
+    ══════════════════════════════════ */
+    .footer {
+      background: #111;
+      padding: 60px 0 32px;
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      margin-bottom: 32px;
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer__logo span { color: var(--orange); }
+    .footer__desc {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 600;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .footer__socials { display: flex; gap: 12px; }
+    .footer__social {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 800;
+      font-size: .7rem;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .footer__social:hover { background: var(--orange); transform: translateY(-3px); }
+    .footer__social svg { width: 18px; height: 18px; fill: white; }
+    .footer__col-title {
+      font-family: var(--font-display);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer__col ul li a {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    .footer__col ul li a:hover { color: var(--orange); }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer__copy {
+      color: rgba(255,255,255,.25);
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .footer__copy span { color: var(--orange); }
+    .footer__contacts {
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+    }
+    .footer__contacts a { color: var(--orange); }
+
+    @media (max-width: 768px) {
+      .footer__top { grid-template-columns: 1fr; gap: 32px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ══════════════════════════════════
+       Toast уведомление
+    ══════════════════════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      background: var(--dark);
+      color: var(--white);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-weight: 700;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      transform: translateX(calc(100% + 64px));
+      opacity: 0;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+      z-index: 9999;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateX(0); opacity: 1; }
+
+    /* ══════════════════════════════════
+       Scroll-reveal (intersection observer)
+    ══════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       1. НАВИГАЦИЯ
+  ════════════════════════════════ -->
+  <header class="nav" role="banner">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo">БЫСТРО<span>.</span></a>
+
+        <nav class="nav__links" aria-label="Основная навигация">
+          <a href="#how">Как работает</a>
+          <a href="#categories">Меню</a>
+          <a href="#why">О нас</a>
+          <a href="#zone">Зоны доставки</a>
+        </nav>
+
+        <a href="#order" class="btn btn-primary nav__cta">Заказать сейчас</a>
+
+        <button class="nav__burger" id="burger" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="nav__mobile" id="mobileMenu">
+        <a href="#how"        onclick="closeMobile()">Как работает</a>
+        <a href="#categories" onclick="closeMobile()">Меню</a>
+        <a href="#why"        onclick="closeMobile()">О нас</a>
+        <a href="#zone"       onclick="closeMobile()">Зоны доставки</a>
+        <a href="#order" class="btn btn-primary" style="width:fit-content" onclick="closeMobile()">Заказать</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ════════════════════════════════
+         2. HERO
+    ════════════════════════════════ -->
+    <section class="hero" id="home" aria-label="Главный экран">
+      <div class="container">
+        <div class="hero__inner">
+
+          <div class="hero__content">
+            <div class="hero__badge">Доставка от 29 минут</div>
+
+            <h1 class="hero__title">
+              Горячо.<br/>
+              <span class="accent">Быстро.</span><br/>
+              Вкусно.
+            </h1>
+
+            <p class="hero__subtitle">
+              Твоя любимая еда — от ресторана до двери быстрее, чем ты думаешь.
+              Без ожидания, без холодных блюд.
+            </p>
+
+            <div class="hero__actions">
+              <a href="#order" class="btn btn-primary" style="font-size:1.05rem; padding:16px 36px;">
+                Заказать сейчас
+              </a>
+              <a href="#categories" class="btn btn-outline">
+                Смотреть меню
+              </a>
+            </div>
+
+            <div class="hero__stats">
+              <div>
+                <div class="hero__stat-num">30<span style="color:var(--orange)">мин</span></div>
+                <div class="hero__stat-label">Среднее время</div>
+              </div>
+              <div>
+                <div class="hero__stat-num">200<span style="color:var(--orange)">+</span></div>
+                <div class="hero__stat-label">Ресторанов</div>
+              </div>
+              <div>
+                <div class="hero__stat-num">4.9<span style="color:var(--orange)">★</span></div>
+                <div class="hero__stat-label">Рейтинг</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSS-иллюстрация -->
+          <div class="hero__art" aria-hidden="true">
+            <div class="art-wave"></div>
+            <div class="art-wave"></div>
+            <div class="art-plate"></div>
+            <div class="art-blob art-blob--1"></div>
+            <div class="art-blob art-blob--2"></div>
+            <div class="art-blob art-blob--3"></div>
+            <div class="art-blob art-blob--4"></div>
+            <div class="art-box"></div>
+            <div class="art-triangle"></div>
+            <div class="art-emoji">🍔</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         3. КАК ЭТО РАБОТАЕТ
+    ════════════════════════════════ -->
+    <section class="how" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <div class="how__head">
+          <div class="section-tag" style="background:rgba(255,255,255,.1);color:#fff;">Всего 3 шага</div>
+          <h2 class="section-title" id="how-title">
+            Так <span>просто</span>, что даже смешно
+          </h2>
+        </div>
+
+        <div class="how__steps">
+
+          <article class="how__step reveal">
+            <div class="how__step-num">01</div>
+            <div class="how__icon" aria-hidden="true">
+              <!-- Иконка: список/меню -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+              </svg>
+            </div>
+            <h3 class="how__step-title">Выбери</h3>
+            <p class="how__step-text">
+              Открой меню, выбери из 200+ блюд и ресторанов рядом с тобой. Фильтры — по кухне, цене, рейтингу.
+            </p>
+          </article>
+
+          <article class="how__step reveal">
+            <div class="how__step-num">02</div>
+            <div class="how__icon" aria-hidden="true">
+              <!-- Иконка: карта оплаты -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-6h16v6zM4 8V6h16v2H4z"/>
+              </svg>
+            </div>
+            <h3 class="how__step-title">Оплати</h3>
+            <p class="how__step-text">
+              Онлайн картой, через СБП или наличными при получении. Быстро, безопасно, без комиссий.
+            </p>
+          </article>
+
+          <article class="how__step reveal">
+            <div class="how__step-num">03</div>
+            <div class="how__icon" aria-hidden="true">
+              <!-- Иконка: курьер/доставка -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 7c0-1.1-.9-2-2-2h-3v2h3v2.65L13.52 14H10V9H6C3.79 9 2 10.79 2 13v3h2c0 1.66 1.34 3 3 3s3-1.34 3-3h4.48L19 10.35V7zM7 17c-.55 0-1-.45-1-1h2c0 .55-.45 1-1 1zm13-1.5c0 .83-.67 1.5-1.5 1.5S17 16.33 17 15.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5zm1-4.5h-3V9h1.28L21 11.5z"/>
+              </svg>
+            </div>
+            <h3 class="how__step-title">Получи</h3>
+            <p class="how__step-text">
+              Курьер доставит горячее прямо к двери. Отслеживай заказ в реальном времени.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         4. ПОПУЛЯРНЫЕ КАТЕГОРИИ
+    ════════════════════════════════ -->
+    <section class="categories" id="categories" aria-labelledby="cat-title">
+      <div class="container">
+        <div class="categories__head">
+          <div class="section-tag">Что привезём</div>
+          <h2 class="section-title" id="cat-title">
+            Любая еда —<br/><span>на любой вкус</span>
+          </h2>
+        </div>
+
+        <div class="categories__grid">
+
+          <article class="cat-card cat-card--1">
+            <span class="cat-card__emoji">🍔</span>
+            <div class="cat-card__name">Бургеры</div>
+            <div class="cat-card__meta">48 вариантов · от 250 ₽</div>
+          </article>
+
+          <article class="cat-card cat-card--2">
+            <span class="cat-card__emoji">🍕</span>
+            <div class="cat-card__name">Пицца</div>
+            <div class="cat-card__meta">32 вкуса · от 390 ₽</div>
+          </article>
+
+          <article class="cat-card cat-card--3">
+            <span class="cat-card__emoji">🍣</span>
+            <div class="cat-card__name">Суши</div>
+            <div class="cat-card__meta">60 позиций · от 180 ₽</div>
+          </article>
+
+          <article class="cat-card cat-card--4">
+            <span class="cat-card__emoji">🍝</span>
+            <div class="cat-card__name">Паста</div>
+            <div class="cat-card__meta">24 блюда · от 320 ₽</div>
+          </article>
+
+          <article class="cat-card cat-card--5">
+            <span class="cat-card__emoji">🥗</span>
+            <div class="cat-card__name">Салаты</div>
+            <div class="cat-card__meta">36 рецептов · от 200 ₽</div>
+          </article>
+
+          <article class="cat-card cat-card--6">
+            <span class="cat-card__emoji">🍰</span>
+            <div class="cat-card__name">Десерты</div>
+            <div class="cat-card__meta">55 видов · от 150 ₽</div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         5. ПОЧЕМУ МЫ
+    ════════════════════════════════ -->
+    <section class="why" id="why" aria-labelledby="why-title">
+      <div class="container">
+        <div class="why__head">
+          <div class="section-tag">Наши преимущества</div>
+          <h2 class="section-title" id="why-title">
+            Почему <span>10 000+ клиентов</span><br/>выбирают БЫСТРО
+          </h2>
+        </div>
+
+        <div class="why__grid">
+
+          <article class="why-card reveal">
+            <div class="why-card__icon" aria-hidden="true">
+              <!-- Иконка: часы/скорость -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="why-card__title">Доставка за 30 минут</h3>
+              <p class="why-card__text">Гарантируем доставку в среднем за 29 минут. Опоздали — следующий заказ со скидкой 50%.</p>
+            </div>
+          </article>
+
+          <article class="why-card reveal">
+            <div class="why-card__icon" aria-hidden="true">
+              <!-- Иконка: огонь/горячее -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM12 20c-3.31 0-6-2.69-6-6 0-1.53.57-2.93 1.5-4 .77 2.23 2.58 3.72 4.76 3.72 1.57 0 2.96-.74 3.87-1.89C16.4 13.28 18 15.47 18 18c0 1.1-.9 2-2 2h-4z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="why-card__title">Еда всегда горячая</h3>
+              <p class="why-card__text">Термосумки и умная маршрутизация — блюдо приедет таким же горячим, каким вышло из кухни.</p>
+            </div>
+          </article>
+
+          <article class="why-card reveal">
+            <div class="why-card__icon" aria-hidden="true">
+              <!-- Иконка: лист/свежесть -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-14 7 0 0 3.5-1 8-1 0 2-3 4-8 4 0 0 2-1 5-1 0 0 0 0 0 0-1.5 2-4 4-7 4a9.7 9.7 0 0 1-3-.5"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="why-card__title">Только свежие продукты</h3>
+              <p class="why-card__text">Работаем с ресторанами, которые используют ингредиенты с фермерских рынков. Вкус настоящий.</p>
+            </div>
+          </article>
+
+          <article class="why-card reveal">
+            <div class="why-card__icon" aria-hidden="true">
+              <!-- Иконка: поддержка -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1C5.925 1 1 5.925 1 12c0 2.69.94 5.16 2.5 7.09L2 22l2.91-1.5C6.84 22.06 9.31 23 12 23c6.075 0 11-4.925 11-11S18.075 1 12 1zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="why-card__title">Поддержка 24/7</h3>
+              <p class="why-card__text">Вопрос по заказу в 3 ночи? Без проблем. Живой оператор ответит за 2 минуты в чате.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         6. АКЦИЯ + ТАЙМЕР
+    ════════════════════════════════ -->
+    <section class="promo" id="promo" aria-labelledby="promo-title">
+      <div class="container">
+        <div class="promo__label">Горящее предложение</div>
+
+        <h2 class="promo__title" id="promo-title">Первый заказ −20%</h2>
+
+        <p class="promo__subtitle">
+          Зарегистрируйся сейчас и получи скидку на первый заказ.<br/>
+          Предложение ограничено — таймер не врёт.
+        </p>
+
+        <div
+          class="promo__code"
+          id="promoCode"
+          onclick="copyPromo()"
+          role="button"
+          tabindex="0"
+          aria-label="Скопировать промокод БЫСТРО20"
+        >
+          <span class="promo__code-tip">Нажми, чтобы скопировать</span>
+          БЫСТРО20
+        </div>
+
+        <!-- Таймер обратного отсчёта -->
+        <div class="timer" role="timer" aria-label="Таймер акции">
+          <div class="timer__block">
+            <span class="timer__num" id="t-h">23</span>
+            <div class="timer__label">часов</div>
+          </div>
+          <div class="timer__sep">:</div>
+          <div class="timer__block">
+            <span class="timer__num" id="t-m">59</span>
+            <div class="timer__label">минут</div>
+          </div>
+          <div class="timer__sep">:</div>
+          <div class="timer__block">
+            <span class="timer__num" id="t-s">59</span>
+            <div class="timer__label">секунд</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         7. ЗОНА ДОСТАВКИ
+    ════════════════════════════════ -->
+    <section class="zone" id="zone" aria-labelledby="zone-title">
+      <div class="container">
+        <div class="zone__inner">
+
+          <div>
+            <div class="section-tag">Где доставляем</div>
+            <h2 class="section-title zone__title" id="zone-title">
+              Покрываем весь <span>город</span>
+            </h2>
+            <p class="zone__text">
+              Доставляем в 28 районах города. Среднее время — 29 минут.
+              Если живёшь за МКАД — уточни у поддержки, часто мы уже там!
+            </p>
+
+            <ul class="zone__list" aria-label="Районы доставки">
+              <li class="zone__item">Центральный</li>
+              <li class="zone__item">Северный</li>
+              <li class="zone__item">Южный</li>
+              <li class="zone__item">Западный</li>
+              <li class="zone__item">Восточный</li>
+              <li class="zone__item">Академический</li>
+              <li class="zone__item">Сокольники</li>
+              <li class="zone__item">Хамовники</li>
+              <li class="zone__item">Арбат</li>
+              <li class="zone__item">Замоскворечье</li>
+              <li class="zone__item">Таганский</li>
+              <li class="zone__item">Измайлово</li>
+            </ul>
+          </div>
+
+          <!-- CSS-карта -->
+          <div class="zone__map" aria-hidden="true">
+            <div class="zone__map-dot"></div>
+            <div class="zone__map-dot"></div>
+            <div class="zone__map-dot"></div>
+            <div class="zone__map-dot"></div>
+            <div class="zone__map-dot"></div>
+            <div class="zone__map-blob">
+              <div class="zone__map-pin">📍</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         8. ФОРМА ЗАКАЗА
+    ════════════════════════════════ -->
+    <section class="order-form" id="order" aria-labelledby="order-title">
+      <div class="container">
+        <div class="order-form__inner">
+
+          <div class="section-tag" style="background:rgba(255,255,255,.1);color:#fff;">Оформить заказ</div>
+          <h2 class="section-title" id="order-title">
+            Готов заказать?<br/><span>Поехали!</span>
+          </h2>
+          <p class="order-form__desc">
+            Оставь данные — оператор перезвонит за 2 минуты и поможет с выбором
+          </p>
+
+          <form class="form" action="#" method="post" id="orderForm" novalidate>
+
+            <div class="form__field">
+              <input
+                class="form__input"
+                type="text"
+                name="name"
+                id="f-name"
+                placeholder="Твоё имя"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+
+            <div class="form__field">
+              <input
+                class="form__input"
+                type="tel"
+                name="phone"
+                id="f-phone"
+                placeholder="+7 (___) ___-__-__"
+                autocomplete="tel"
+                required
+              />
+            </div>
+
+            <div class="form__field">
+              <input
+                class="form__input"
+                type="text"
+                name="address"
+                id="f-address"
+                placeholder="Адрес доставки"
+                autocomplete="street-address"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary form__submit">
+              Заказать со скидкой 20%
+            </button>
+
+            <p class="form__note">
+              Нажимая кнопку, ты соглашаешься с обработкой персональных данных.
+              Мы не спамим — только звоним по делу.
+            </p>
+
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ════════════════════════════════
+       9. FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__top">
+
+        <div>
+          <div class="footer__logo">БЫСТРО<span>.</span></div>
+          <p class="footer__desc">
+            Доставка горячей еды из лучших ресторанов города.<br/>
+            Быстро, вкусно, без компромиссов.
+          </p>
+          <div class="footer__socials" aria-label="Соцсети">
+            <!-- VK -->
+            <a href="#" class="footer__social" aria-label="ВКонтакте">
+              <svg viewBox="0 0 24 24"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm2.85 13.5h-1.64c-.62 0-.81-.5-1.93-1.62-.97-.93-1.4-.93-1.64-.93-.33 0-.43.1-.43.56v1.48c0 .4-.13.64-1.18.64-1.74 0-3.67-1.05-5.02-3.01C4.56 10.3 4 8.36 4 8.07c0-.24.1-.46.56-.46h1.64c.42 0 .58.19.74.64.81 2.34 2.17 4.39 2.73 4.39.21 0 .3-.1.3-.64V9.93c-.07-1.15-.67-1.25-.67-1.66 0-.2.16-.4.42-.4h2.58c.35 0 .48.19.48.61v3.27c0 .35.16.48.26.48.21 0 .38-.13.76-.51 1.18-1.32 2.02-3.35 2.02-3.35.11-.24.3-.46.72-.46h1.64c.49 0 .6.25.49.61-.21.96-2.24 3.84-2.24 3.84-.18.29-.24.42 0 .74.17.24.74.74 1.12 1.18.69.79 1.22 1.45 1.37 1.9.14.46-.1.69-.56.69z"/></svg>
+            </a>
+            <!-- Telegram -->
+            <a href="#" class="footer__social" aria-label="Telegram">
+              <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+            </a>
+            <!-- WhatsApp -->
+            <a href="#" class="footer__social" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__col-title">Компания</div>
+          <ul>
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Карьера</a></li>
+            <li><a href="#">Блог</a></li>
+            <li><a href="#">Пресса</a></li>
+            <li><a href="#">Партнёрам</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <div class="footer__col-title">Помощь</div>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Условия доставки</a></li>
+            <li><a href="#">Политика возврата</a></li>
+            <li><a href="#">Конфиденциальность</a></li>
+            <li><a href="#">Контакты</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          © 2025 <span>БЫСТРО</span>. Все права защищены.
+        </p>
+        <p class="footer__contacts">
+          <a href="tel:+78001234567">8 800 123-45-67</a>
+          &nbsp;·&nbsp;
+          <a href="mailto:hello@bystro.ru">hello@bystro.ru</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast уведомление -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- ════════════════════════════════
+       JavaScript
+  ════════════════════════════════ -->
+  <script>
+    /* ── Мобильное меню ── */
+    const burger     = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+    });
+
+    function closeMobile() {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* ── Таймер обратного отсчёта ── */
+    (function initTimer() {
+      const STORAGE_KEY = 'bystro_promo_end';
+      const MS_24H = 24 * 60 * 60 * 1000;
+
+      // Берём или создаём момент окончания акции
+      let endTime = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+      if (!endTime || endTime < Date.now()) {
+        endTime = Date.now() + MS_24H;
+        localStorage.setItem(STORAGE_KEY, endTime);
+      }
+
+      const hEl = document.getElementById('t-h');
+      const mEl = document.getElementById('t-m');
+      const sEl = document.getElementById('t-s');
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function tick() {
+        const remaining = endTime - Date.now();
+
+        if (remaining <= 0) {
+          hEl.textContent = '00';
+          mEl.textContent = '00';
+          sEl.textContent = '00';
+          return;
+        }
+
+        const h = Math.floor(remaining / 3_600_000);
+        const m = Math.floor((remaining % 3_600_000) / 60_000);
+        const s = Math.floor((remaining % 60_000) / 1000);
+
+        hEl.textContent = pad(h);
+        mEl.textContent = pad(m);
+        sEl.textContent = pad(s);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    /* ── Копирование промокода ── */
+    function copyPromo() {
+      const code = 'БЫСТРО20';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => showToast('Промокод скопирован: ' + code + ' 🎉'));
+      } else {
+        showToast('Промокод: ' + code);
+      }
+    }
+
+    document.getElementById('promoCode').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') copyPromo();
+    });
+
+    /* ── Toast ── */
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    /* ── Форма ── */
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name    = document.getElementById('f-name').value.trim();
+      const phone   = document.getElementById('f-phone').value.trim();
+      const address = document.getElementById('f-address').value.trim();
+
+      if (!name || !phone || !address) {
+        showToast('Пожалуйста, заполни все поля');
+        return;
+      }
+
+      // Имитация отправки
+      const btn = this.querySelector('.form__submit');
+      btn.textContent = 'Отправляем...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        showToast('Заявка принята! Перезвоним за 2 минуты 🚀');
+        this.reset();
+        btn.textContent = 'Заказать со скидкой 20%';
+        btn.disabled = false;
+      }, 1500);
+    });
+
+    /* ── Scroll-reveal через IntersectionObserver ── */
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    /* ── Sticky nav с тенью при скролле ── */
+    const nav = document.querySelector('.nav');
+
+    window.addEventListener('scroll', () => {
+      nav.style.boxShadow = window.scrollY > 10
+        ? '0 4px 24px rgba(0,0,0,.1)'
+        : 'none';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

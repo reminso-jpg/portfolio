@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dental Pro — премиальная стоматологическая клиника. Лечение, имплантация, отбеливание. Безболезненно, современно, с гарантией.">
+  <title>Dental Pro — Премиальная стоматология</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════ НАВИГАЦИЯ ═══════════════════════ -->
+  <header>
+    <nav class="nav" id="nav" role="navigation" aria-label="Главная навигация">
+      <div class="container nav-inner">
+
+        <a href="index.html" class="nav-logo" aria-label="Dental Pro — главная">
+          <span class="nav-logo-name">Dental Pro</span>
+          <span class="nav-logo-sub">Стоматология</span>
+        </a>
+
+        <ul class="nav-links" role="list">
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="services.html">Услуги</a></li>
+          <li><a href="#about">О клинике</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+
+        <a href="#booking" class="btn btn-primary nav-cta">Записаться</a>
+
+        <button class="nav-burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <div class="nav-mobile" id="mobile-menu" role="dialog" aria-label="Мобильное меню">
+      <a href="index.html">Главная</a>
+      <a href="services.html">Услуги</a>
+      <a href="#about">О клинике</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#booking" class="btn btn-primary" style="width:fit-content">Записаться</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero container" aria-labelledby="hero-title">
+
+      <div class="hero-content">
+        <div class="hero-tag" role="note">
+          <span class="hero-tag-dot" aria-hidden="true"></span>
+          Клиника №1 в Москве · 2024
+        </div>
+
+        <h1 class="hero-title" id="hero-title">
+          Улыбка,<br>которой<br>вы <em>доверяете</em>
+        </h1>
+
+        <p class="hero-text">
+          Современная стоматология без страха и боли. Мы создаём здоровые улыбки с 2009 года, используя технологии мирового уровня.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary">Записаться на приём</a>
+          <a href="services.html" class="btn btn-outline">Наши услуги</a>
+        </div>
+
+        <div class="hero-stats" role="list" aria-label="Ключевые показатели">
+          <div role="listitem">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">лет опыта</div>
+          </div>
+          <div role="listitem">
+            <div class="stat-num">8 000+</div>
+            <div class="stat-label">пациентов</div>
+          </div>
+          <div role="listitem">
+            <div class="stat-num">98%</div>
+            <div class="stat-label">довольны результатом</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSS-иллюстрация -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="illus">
+          <div class="illus-ring illus-ring-1"></div>
+          <div class="illus-ring illus-ring-2"></div>
+          <div class="illus-ring illus-ring-3"></div>
+          <div class="illus-center">
+            <div class="illus-tooth"></div>
+          </div>
+          <div class="illus-dot illus-dot-1"></div>
+          <div class="illus-dot illus-dot-2"></div>
+          <div class="illus-dot illus-dot-3"></div>
+
+          <div class="illus-card illus-card-1">
+            <div class="illus-card-icon">🦷</div>
+            <div class="illus-card-text">
+              <strong>Безболезненно</strong>
+              Анестезия нового поколения
+            </div>
+          </div>
+
+          <div class="illus-card illus-card-2">
+            <div class="illus-card-icon">✓</div>
+            <div class="illus-card-text">
+              <strong>Гарантия 5 лет</strong>
+              На все виды работ
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════ ПРЕИМУЩЕСТВА ═══════════════════════ -->
+    <section class="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="features-header">
+          <div class="section-label">Почему выбирают нас</div>
+          <h2 class="section-title" id="features-title">Четыре причины<br>доверить нам своё здоровье</h2>
+          <p class="section-subtitle">Мы не просто лечим зубы — мы формируем долгосрочные отношения с каждым пациентом.</p>
+        </div>
+
+        <div class="features-grid">
+
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true">🏆</div>
+            <div class="feature-num">15</div>
+            <h3>Лет опыта</h3>
+            <p>Наши специалисты — выпускники ведущих медицинских университетов с практикой в европейских клиниках.</p>
+          </article>
+
+          <article class="feature-card reveal reveal-delay-1">
+            <div class="feature-icon" aria-hidden="true">⚙️</div>
+            <div class="feature-num">3D</div>
+            <h3>Оборудование</h3>
+            <p>КТ-сканер, цифровой слепок, лазерное лечение. Диагностируем то, что нельзя увидеть невооружённым взглядом.</p>
+          </article>
+
+          <article class="feature-card reveal reveal-delay-2">
+            <div class="feature-icon" aria-hidden="true">💉</div>
+            <div class="feature-num">0</div>
+            <h3>Страха и боли</h3>
+            <p>Компьютерная анестезия и седация для особо тревожных пациентов. Лечение во сне — тоже вариант.</p>
+          </article>
+
+          <article class="feature-card reveal reveal-delay-3">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <div class="feature-num">5</div>
+            <h3>Лет гарантии</h3>
+            <p>Письменная гарантия на все виды работ. Если что-то пойдёт не так — мы исправим бесплатно.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ УСЛУГИ (ПРЕВЬЮ) ═══════════════════════ -->
+    <section class="services-preview" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-preview-header">
+          <div>
+            <div class="section-label">Популярные направления</div>
+            <h2 class="section-title" id="services-title">Что мы лечим<br>и восстанавливаем</h2>
+          </div>
+          <p class="section-subtitle">Полный спектр стоматологических услуг под одной крышей — от простой чистки до сложной имплантации.</p>
+        </div>
+
+        <div class="services-cards">
+
+          <article class="service-card reveal">
+            <div class="service-card-visual">
+              <div class="service-card-visual-shape">
+                <span class="service-card-visual-icon" aria-hidden="true">🦷</span>
+              </div>
+            </div>
+            <div class="service-card-body">
+              <div class="service-tag">Терапия</div>
+              <h3>Лечение кариеса</h3>
+              <p>Современные материалы и технологии позволяют вылечить даже глубокий кариес за один визит, без боли и долгих сессий.</p>
+              <div class="service-price">
+                <span class="service-price-from">от</span>
+                <span class="service-price-num">2 500</span>
+                <span class="service-price-currency">₽</span>
+              </div>
+              <a href="services.html" class="btn btn-ghost">Подробнее</a>
+            </div>
+          </article>
+
+          <article class="service-card reveal reveal-delay-1">
+            <div class="service-card-visual" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+              <div class="service-card-visual-shape" style="background: rgba(40,120,80,.1);">
+                <span class="service-card-visual-icon" aria-hidden="true">✨</span>
+              </div>
+            </div>
+            <div class="service-card-body">
+              <div class="service-tag">Эстетика</div>
+              <h3>Отбеливание Zoom</h3>
+              <p>Профессиональное отбеливание в кресле за 90 минут. Зубы становятся на 6–10 тонов светлее уже после первого сеанса.</p>
+              <div class="service-price">
+                <span class="service-price-from">от</span>
+                <span class="service-price-num">12 000</span>
+                <span class="service-price-currency">₽</span>
+              </div>
+              <a href="services.html" class="btn btn-ghost">Подробнее</a>
+            </div>
+          </article>
+
+          <article class="service-card reveal reveal-delay-2">
+            <div class="service-card-visual" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);">
+              <div class="service-card-visual-shape" style="background: rgba(140,40,80,.08);">
+                <span class="service-card-visual-icon" aria-hidden="true">🔩</span>
+              </div>
+            </div>
+            <div class="service-card-body">
+              <div class="service-tag">Имплантация</div>
+              <h3>Зубной имплант</h3>
+              <p>Восстановление зуба на всю жизнь. Используем импланты Nobel Biocare и Straumann — мировые стандарты качества.</p>
+              <div class="service-price">
+                <span class="service-price-from">от</span>
+                <span class="service-price-num">35 000</span>
+                <span class="service-price-currency">₽</span>
+              </div>
+              <a href="services.html" class="btn btn-ghost">Подробнее</a>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="services-cta reveal">
+          <a href="services.html" class="btn btn-primary">Все услуги и цены</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ О ВРАЧЕ ═══════════════════════ -->
+    <section class="doctor" id="about" aria-labelledby="doctor-title">
+      <div class="container doctor-inner">
+
+        <div class="doctor-avatar-wrap reveal" aria-hidden="true">
+          <div class="doctor-avatar-bg"></div>
+          <div class="doctor-badge">
+            <div class="doctor-badge-icon">🏅</div>
+            <div class="doctor-badge-text">
+              <strong>Врач высшей категории</strong>
+              Стаж 17 лет
+            </div>
+          </div>
+        </div>
+
+        <div class="doctor-content reveal reveal-delay-1">
+          <div class="section-label">Главный врач</div>
+          <h2 class="doctor-name" id="doctor-title">Александр Витальевич Морозов</h2>
+          <div class="doctor-title">Хирург-имплантолог, ортопед · Кандидат медицинских наук</div>
+          <p class="doctor-bio">
+            Более 17 лет я занимаюсь тем, чтобы каждый пациент выходил из клиники с уверенной улыбкой. За эти годы я убедился: стоматология — это не только техника, но и доверие. Именно поэтому мы всегда объясняем каждый шаг лечения и никогда не навязываем лишних процедур.
+          </p>
+
+          <ul class="doctor-credentials" role="list">
+            <li class="credential-item">
+              <div class="credential-dot" aria-hidden="true"></div>
+              МГМСУ им. Евдокимова — лечебный факультет с отличием
+            </li>
+            <li class="credential-item">
+              <div class="credential-dot" aria-hidden="true"></div>
+              Стажировка в клинике Гамбурга (Германия, 2012)
+            </li>
+            <li class="credential-item">
+              <div class="credential-dot" aria-hidden="true"></div>
+              Сертификат Nobel Biocare Implant System
+            </li>
+            <li class="credential-item">
+              <div class="credential-dot" aria-hidden="true"></div>
+              Член Стоматологической ассоциации России
+            </li>
+          </ul>
+
+          <a href="#booking" class="btn btn-primary">Записаться к врачу</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ ФОРМА ЗАПИСИ ═══════════════════════ -->
+    <section class="booking" id="booking" aria-labelledby="booking-title">
+      <div class="container booking-inner">
+
+        <div class="booking-content reveal">
+          <div class="section-label">Запись онлайн</div>
+          <h2 class="section-title" id="booking-title">Запишитесь<br>прямо сейчас</h2>
+          <p class="section-subtitle">Выберите удобное время — мы перезвоним и подтвердим запись в течение 15 минут.</p>
+
+          <ul class="booking-info" role="list">
+            <li class="booking-info-item">
+              <span aria-hidden="true">📍</span>
+              <span>Москва, ул. Пречистенка, 27, офис 4</span>
+            </li>
+            <li class="booking-info-item">
+              <span aria-hidden="true">📞</span>
+              <span><a href="tel:+74951234567" style="color:inherit">+7 (495) 123-45-67</a></span>
+            </li>
+            <li class="booking-info-item">
+              <span aria-hidden="true">🕐</span>
+              <span>Пн–Сб: 9:00 – 21:00 · Вс: 10:00 – 18:00</span>
+            </li>
+            <li class="booking-info-item">
+              <span aria-hidden="true">✉️</span>
+              <span><a href="mailto:info@dentalpro.ru" style="color:inherit">info@dentalpro.ru</a></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="booking-form-wrap reveal reveal-delay-2">
+          <h3>Заявка на приём</h3>
+          <p>Заполните форму — и мы свяжемся с вами</p>
+
+          <form action="#" method="post" novalidate aria-label="Форма записи на приём">
+            <div class="form-group">
+              <label for="name" class="form-label">Ваше имя</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Иван Иванов"
+                required
+                autocomplete="name"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Телефон</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="form-control"
+                placeholder="+7 (___) ___-__-__"
+                required
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="service" class="form-label">Услуга</label>
+                <select id="service" name="service" class="form-control">
+                  <option value="" disabled selected>Выберите услугу</option>
+                  <option value="consultation">Консультация</option>
+                  <option value="caries">Лечение кариеса</option>
+                  <option value="whitening">Отбеливание</option>
+                  <option value="implant">Имплантация</option>
+                  <option value="orthodontics">Ортодонтия</option>
+                  <option value="surgery">Хирургия</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="date" class="form-label">Дата</label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  class="form-control"
+                >
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">
+              Отправить заявку
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="footer" id="contacts" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-col">
+          <div class="footer-logo-name">Dental Pro</div>
+          <div class="footer-logo-sub">Стоматология</div>
+          <p class="footer-desc">
+            Премиальная стоматологическая клиника в центре Москвы. Работаем с 2009 года. Лечим людей — и меняем их жизнь к лучшему.
+          </p>
+          <div class="footer-socials" role="list" aria-label="Социальные сети">
+            <a href="#" class="social-link" role="listitem" aria-label="ВКонтакте">ВК</a>
+            <a href="#" class="social-link" role="listitem" aria-label="Telegram">TG</a>
+            <a href="#" class="social-link" role="listitem" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul role="list">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="services.html">Услуги и цены</a></li>
+            <li><a href="#about">О клинике</a></li>
+            <li><a href="#booking">Записаться</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <ul role="list">
+            <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+            <li><a href="mailto:info@dentalpro.ru">info@dentalpro.ru</a></li>
+            <li style="color: rgba(255,255,255,.5); font-size: var(--fs-sm);">Пречистенка, 27, офис 4<br>Москва, 119002</li>
+            <li style="color: rgba(255,255,255,.5); font-size: var(--fs-sm); margin-top:.5rem;">Пн–Сб: 9:00 – 21:00<br>Вс: 10:00 – 18:00</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2009–2024 Dental Pro. Все права защищены.</span>
+        <span>Лицензия № ЛО-77-01-020123 · Москва</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

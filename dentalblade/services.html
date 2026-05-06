@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dental Pro — полный прайс-лист услуг: терапия, хирургия, имплантация, ортодонтия, отбеливание. Прозрачные цены, без скрытых надбавок.">
+  <title>Услуги и цены — Dental Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════ НАВИГАЦИЯ ═══════════════════════ -->
+  <header>
+    <nav class="nav" id="nav" role="navigation" aria-label="Главная навигация">
+      <div class="container nav-inner">
+
+        <a href="index.html" class="nav-logo" aria-label="Dental Pro — главная">
+          <span class="nav-logo-name">Dental Pro</span>
+          <span class="nav-logo-sub">Стоматология</span>
+        </a>
+
+        <ul class="nav-links" role="list">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="services.html" class="active">Услуги</a></li>
+          <li><a href="index.html#about">О клинике</a></li>
+          <li><a href="index.html#contacts">Контакты</a></li>
+        </ul>
+
+        <a href="index.html#booking" class="btn btn-primary nav-cta">Записаться</a>
+
+        <button class="nav-burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <div class="nav-mobile" id="mobile-menu" role="dialog" aria-label="Мобильное меню">
+      <a href="index.html">Главная</a>
+      <a href="services.html">Услуги</a>
+      <a href="index.html#about">О клинике</a>
+      <a href="index.html#contacts">Контакты</a>
+      <a href="index.html#booking" class="btn btn-primary" style="width:fit-content">Записаться</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════ HERO СТРАНИЦЫ ═══════════════════════ -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container page-hero-inner">
+
+        <nav class="page-hero-breadcrumb" aria-label="Хлебные крошки">
+          <a href="index.html">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Услуги и цены</span>
+        </nav>
+
+        <div class="section-label">Все направления</div>
+        <h1 class="page-hero-title" id="page-title">Услуги<br>и прозрачные цены</h1>
+        <p class="page-hero-subtitle">
+          Полный спектр стоматологических услуг. Цены фиксированы — никаких скрытых надбавок и навязанных процедур.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ СЕТКА УСЛУГ ═══════════════════════ -->
+    <section class="services-full" aria-labelledby="services-heading">
+      <div class="container">
+
+        <h2 class="sr-only" id="services-heading">Все стоматологические услуги</h2>
+
+        <!-- ── Терапия ── -->
+        <div class="services-category">
+          <div class="category-header reveal">
+            <div class="category-icon" aria-hidden="true">🦷</div>
+            <div>
+              <h2>Терапия</h2>
+              <p>Лечение и сохранение зубов</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Первичная консультация</div>
+              <div class="service-item-desc">
+                Осмотр полости рта, составление плана лечения, рекомендации специалиста. Без скрытых диагнозов.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  0 <span>₽ — бесплатно</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Лечение кариеса</div>
+              <div class="service-item-desc">
+                Лечение начального и среднего кариеса с установкой светополимерной пломбы. За один визит.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  2 500 <span>₽ / зуб</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-2">
+              <div class="service-item-name">Глубокий кариес</div>
+              <div class="service-item-desc">
+                Лечение глубокого кариеса с сохранением пульпы и установкой анатомической реставрации.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  4 800 <span>₽ / зуб</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Лечение пульпита</div>
+              <div class="service-item-desc">
+                Удаление воспалённой пульпы, чистка и пломбировка каналов. Сохраняем зуб — не удаляем.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  7 500 <span>₽ / зуб</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Профессиональная чистка</div>
+              <div class="service-item-desc">
+                Air Flow + ультразвук + полировка. Снимаем зубной камень, налёт и оставляем ощущение свежести.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  4 500 <span>₽</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ── Хирургия ── -->
+        <div class="services-category">
+          <div class="category-header reveal">
+            <div class="category-icon" aria-hidden="true">✂️</div>
+            <div>
+              <h2>Хирургия</h2>
+              <p>Удаление, операции, восстановление</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Удаление зуба</div>
+              <div class="service-item-desc">
+                Простое удаление молочного или постоянного зуба под местной анестезией. Быстро и без стресса.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  2 000 <span>₽</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Сложное удаление</div>
+              <div class="service-item-desc">
+                Удаление ретинированных, дистопированных зубов и зубов мудрости. Панорамный снимок включён.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  6 500 <span>₽</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-2">
+              <div class="service-item-name">Лечение кисты</div>
+              <div class="service-item-desc">
+                Резекция верхушки корня или цистотомия. Удаляем кисту, сохраняя зуб в полости рта.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  12 000 <span>₽</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ── Ортодонтия ── -->
+        <div class="services-category">
+          <div class="category-header reveal">
+            <div class="category-icon" aria-hidden="true">😁</div>
+            <div>
+              <h2>Ортодонтия</h2>
+              <p>Выравнивание зубов и прикуса</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Металлические брекеты</div>
+              <div class="service-item-desc">
+                Классические лигатурные брекеты — надёжный и доступный способ выровнять зубы. Срок лечения 18–24 мес.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  65 000 <span>₽ / курс</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Сапфировые брекеты</div>
+              <div class="service-item-desc">
+                Эстетичные прозрачные брекеты из монокристаллического сапфира. Практически незаметны при улыбке.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  90 000 <span>₽ / курс</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-2">
+              <div class="service-item-name">Элайнеры Invisalign</div>
+              <div class="service-item-desc">
+                Прозрачные капы, которые можно снять во время еды. Цифровое планирование, предсказуемый результат.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  180 000 <span>₽ / курс</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ── Имплантация ── -->
+        <div class="services-category">
+          <div class="category-header reveal">
+            <div class="category-icon" aria-hidden="true">🔩</div>
+            <div>
+              <h2>Имплантация</h2>
+              <p>Восстановление зубов навсегда</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Имплант Straumann</div>
+              <div class="service-item-desc">
+                Швейцарский имплант — эталон надёжности. Высшая приживаемость, гарантия производителя без срока.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  45 000 <span>₽ / имплант</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Имплант Nobel Biocare</div>
+              <div class="service-item-desc">
+                Американский имплант с технологией TiUnite. Идеален для немедленной нагрузки: протез — уже на 3-й день.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  40 000 <span>₽ / имплант</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-2">
+              <div class="service-item-name">Коронка на имплант</div>
+              <div class="service-item-desc">
+                Металлокерамическая или цельнокерамическая коронка на абатмент. Неотличима от натурального зуба.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  18 000 <span>₽ / единица</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-3">
+              <div class="service-item-name">All-on-4 / All-on-6</div>
+              <div class="service-item-desc">
+                Полное восстановление зубного ряда на 4–6 имплантах. Несъёмный протез за 24 часа — технология баденской нагрузки.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  280 000 <span>₽ / челюсть</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ── Отбеливание и эстетика ── -->
+        <div class="services-category">
+          <div class="category-header reveal">
+            <div class="category-icon" aria-hidden="true">✨</div>
+            <div>
+              <h2>Эстетика и отбеливание</h2>
+              <p>Красота и уверенность в улыбке</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+
+            <article class="service-item reveal">
+              <div class="service-item-name">Отбеливание Zoom 4</div>
+              <div class="service-item-desc">
+                90 минут в кресле — и зубы светлее на 6–10 тонов. Включает ночные капы для поддержания результата.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  12 000 <span>₽</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-1">
+              <div class="service-item-name">Виниры E.max</div>
+              <div class="service-item-desc">
+                Тончайшие керамические накладки, которые корректируют форму, цвет и положение зубов. Эффект голливудской улыбки.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  25 000 <span>₽ / зуб</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+            <article class="service-item reveal reveal-delay-2">
+              <div class="service-item-name">Художественная реставрация</div>
+              <div class="service-item-desc">
+                Восстановление скола, трещины или нарушенной формы с помощью фотополимера без снятия слепка.
+              </div>
+              <div class="service-item-footer">
+                <div class="service-item-price">
+                  5 500 <span>₽ / зуб</span>
+                </div>
+                <a href="index.html#booking" class="btn btn-ghost">Записаться</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ── CTA блок ── -->
+        <div class="services-cta-block reveal">
+          <div class="section-label" style="justify-content:center;">
+            Бесплатная консультация
+          </div>
+          <h2>Не знаете, что выбрать?</h2>
+          <p>
+            Запишитесь на бесплатную консультацию — врач осмотрит полость рта, составит чёткий план лечения и ответит на все вопросы. Без навязывания лишних услуг.
+          </p>
+          <div class="cta-actions">
+            <a href="index.html#booking" class="btn btn-primary">Записаться на консультацию</a>
+            <a href="tel:+74951234567" class="btn btn-outline">
+              <span>📞</span> +7 (495) 123-45-67
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="footer" id="contacts" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-col">
+          <div class="footer-logo-name">Dental Pro</div>
+          <div class="footer-logo-sub">Стоматология</div>
+          <p class="footer-desc">
+            Премиальная стоматологическая клиника в центре Москвы. Работаем с 2009 года. Лечим людей — и меняем их жизнь к лучшему.
+          </p>
+          <div class="footer-socials" role="list" aria-label="Социальные сети">
+            <a href="#" class="social-link" role="listitem" aria-label="ВКонтакте">ВК</a>
+            <a href="#" class="social-link" role="listitem" aria-label="Telegram">TG</a>
+            <a href="#" class="social-link" role="listitem" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Навигация</h4>
+          <ul role="list">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="services.html">Услуги и цены</a></li>
+            <li><a href="index.html#about">О клинике</a></li>
+            <li><a href="index.html#booking">Записаться</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <ul role="list">
+            <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+            <li><a href="mailto:info@dentalpro.ru">info@dentalpro.ru</a></li>
+            <li style="color: rgba(255,255,255,.5); font-size: var(--fs-sm);">Пречистенка, 27, офис 4<br>Москва, 119002</li>
+            <li style="color: rgba(255,255,255,.5); font-size: var(--fs-sm); margin-top:.5rem;">Пн–Сб: 9:00 – 21:00<br>Вс: 10:00 – 18:00</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2009–2024 Dental Pro. Все права защищены.</span>
+        <span>Лицензия № ЛО-77-01-020123 · Москва</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Вспомогательный класс для screen readers -->
+  <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+
+  <script src="script.js"></script>
+</body>
+</html>
