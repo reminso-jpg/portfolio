@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRON &amp; BLADE — Барбершоп</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ===== Custom Properties ===== */
+:root {
+  --bg:        #0d0d0d;
+  --bg-alt:    #111111;
+  --bg-card:   #141414;
+  --gold:      #c9a84c;
+  --gold-lt:   #e0bc62;
+  --gold-dk:   #9a7d30;
+  --text:      #e8e2d5;
+  --muted:     #7a756c;
+  --border:    #242018;
+  --f-display: 'Bebas Neue', sans-serif;
+  --f-head:    'Oswald', sans-serif;
+  --f-body:    'Crimson Text', Georgia, serif;
+  --pad:       clamp(60px, 10vw, 120px);
+  --wrap:      1200px;
+  --gap:       clamp(20px, 4vw, 60px);
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+img, svg { display: block; }
+
+/* ===== Layout ===== */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 60px);
+}
+
+/* ===== Shared micro-components ===== */
+.eyebrow {
+  font-family: var(--f-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.sec-title {
+  font-family: var(--f-display);
+  font-size: clamp(44px, 7vw, 90px);
+  line-height: .95;
+  color: var(--text);
+}
+.gold-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 20px 0 28px;
+}
+
+/* ===== Scroll animations ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 22px 0;
+  transition: background .3s, padding .3s, border .3s;
+}
+nav.stuck {
+  background: rgba(13,13,13,.96);
+  backdrop-filter: blur(12px);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 26px;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: .04em;
+}
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-head);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; color: var(--muted);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-btn {
+  font-family: var(--f-head);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  background: var(--gold); color: var(--bg);
+  padding: 11px 26px; text-decoration: none;
+  transition: background .2s;
+}
+.nav-btn:hover { background: var(--gold-lt); }
+/* Hamburger */
+.burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.burger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text); transition: all .25s;
+}
+
+/* ===== HERO ===== */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 130px 0 80px;
+  overflow: hidden;
+}
+/* Scanline + radial glow texture */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(201,168,76,.012) 3px, rgba(201,168,76,.012) 4px),
+    radial-gradient(ellipse 65% 70% at 72% 50%, rgba(201,168,76,.09) 0%, transparent 100%);
+  pointer-events: none;
+}
+/* Giant ghost numeral */
+#hero::after {
+  content: 'IX';
+  position: absolute; right: -30px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-display);
+  font-size: clamp(180px, 28vw, 380px);
+  color: rgba(201,168,76,.032);
+  line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.hero-inner { position: relative; z-index: 1; }
+.hero-kicker {
+  font-family: var(--f-head);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 22px;
+}
+.hero-kicker::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
+.hero-h1 {
+  font-family: var(--f-display);
+  font-size: clamp(68px, 13vw, 172px);
+  line-height: .88;
+  letter-spacing: -.01em;
+}
+.hero-h1 em { display: block; color: var(--gold); font-style: normal; }
+/* Diamond divider */
+.hero-div {
+  display: flex; align-items: center; gap: 14px;
+  margin: 26px 0;
+}
+.hero-div::before, .hero-div::after {
+  content: ''; flex: 1; max-width: 110px; height: 1px;
+}
+.hero-div::before { background: linear-gradient(90deg, var(--gold), transparent); }
+.hero-div::after  { background: linear-gradient(270deg, var(--gold), transparent); }
+.hero-div i { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 21px);
+  font-style: italic;
+  color: var(--muted);
+  max-width: 400px; margin-bottom: 46px;
+  line-height: 1.55;
+}
+.hero-actions { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+/* Primary button */
+.btn-gold {
+  display: inline-block;
+  font-family: var(--f-head); font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold);
+  padding: 18px 42px; text-decoration: none;
+  position: relative; overflow: hidden; transition: color .3s;
+}
+.btn-gold::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-lt);
+  transform: translateX(-100%); transition: transform .3s;
+}
+.btn-gold:hover::after { transform: translateX(0); }
+.btn-gold span { position: relative; z-index: 1; }
+/* Ghost link */
+.btn-ghost {
+  font-family: var(--f-head); font-size: 12px; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  display: flex; align-items: center; gap: 9px;
+  transition: color .2s;
+}
+.btn-ghost::after { content: '→'; transition: transform .2s; }
+.btn-ghost:hover { color: var(--gold); }
+.btn-ghost:hover::after { transform: translateX(5px); }
+/* Stats row */
+.hero-stats {
+  display: flex; gap: 48px; flex-wrap: wrap;
+  margin-top: 72px; padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+.stat-n {
+  font-family: var(--f-display); font-size: 44px;
+  color: var(--gold); line-height: 1;
+}
+.stat-l {
+  font-family: var(--f-head); font-size: 10px;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); margin-top: 4px;
+}
+/* Geometric ornament — circles + cross */
+.hero-orn {
+  position: absolute; right: clamp(20px, 7vw, 100px); top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 26vw, 360px); height: clamp(180px, 26vw, 360px);
+  pointer-events: none;
+}
+.orn-c {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(201,168,76,.13);
+}
+.orn-c:nth-child(1) { inset: 0; }
+.orn-c:nth-child(2) { inset: 15%; border-color: rgba(201,168,76,.08); }
+.orn-c:nth-child(3) {
+  inset: 31%;
+  background: rgba(201,168,76,.025);
+  border-color: rgba(201,168,76,.18);
+}
+.orn-x {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.orn-x::before, .orn-x::after {
+  content: ''; position: absolute; background: rgba(201,168,76,.28);
+}
+.orn-x::before { width: 1px; height: 56px; top: -28px; left: 0; }
+.orn-x::after  { height: 1px; width: 56px; left: -28px; top: 0; }
+
+/* ===== ABOUT ===== */
+#about {
+  padding: var(--pad) 0;
+  position: relative; overflow: hidden;
+}
+#about::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--gold) 40%, transparent);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--gap);
+  align-items: center;
+}
+/* CSS photo placeholder */
+.about-photo {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+.about-photo::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(150deg, #1b1408 0%, #0d0d0d 45%, #130e05 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 14px,
+      rgba(201,168,76,.025) 14px, rgba(201,168,76,.025) 15px);
+}
+/* Stylised silhouette */
+.ph-fig { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
+.ph-head {
+  width: 58px; height: 66px;
+  background: linear-gradient(180deg, #2e1e08 0%, #150f04 100%);
+  border-radius: 50% 50% 36% 36%;
+  margin: 0 auto;
+}
+.ph-body {
+  width: 94px; height: 150px;
+  background: linear-gradient(180deg, #221608 0%, #0d0d0d 100%);
+  clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+  margin: 0 auto;
+}
+.ph-shadow {
+  width: 80%; height: 6px;
+  background: rgba(0,0,0,.5);
+  filter: blur(10px);
+  margin: 0 auto;
+}
+.ph-tag {
+  position: absolute; bottom: 22px; left: 22px;
+  font-family: var(--f-head); font-size: 10px;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold);
+}
+/* Offset border frame */
+.ph-frame {
+  position: absolute;
+  top: 18px; right: -18px; bottom: -18px; left: 18px;
+  border: 1px solid rgba(201,168,76,.18);
+  pointer-events: none; z-index: -1;
+}
+.about-body { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+.about-body strong { color: var(--text); }
+.about-vals { display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+.aval { display: flex; align-items: flex-start; gap: 14px; }
+.aval-bar { width: 2px; height: 44px; background: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.aval-title {
+  font-family: var(--f-head); font-size: 12px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text);
+}
+.aval-sub {
+  font-size: 14px; font-style: italic;
+  color: var(--muted); margin-top: 3px;
+}
+
+/* ===== SERVICES ===== */
+#services {
+  padding: var(--pad) 0;
+  background: var(--bg-alt);
+  position: relative; overflow: hidden;
+}
+#services::before {
+  content: 'УСЛУГИ';
+  position: absolute; right: -10px; top: 50%;
+  transform: translateY(-50%) rotate(90deg) translateX(50%);
+  font-family: var(--f-display);
+  font-size: clamp(64px, 11vw, 130px);
+  color: rgba(201,168,76,.028);
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+.sec-hdr { margin-bottom: clamp(36px, 5vw, 68px); }
+
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border);
+}
+.svc-card {
+  background: var(--bg-alt);
+  padding: clamp(28px, 3.5vw, 50px) clamp(22px, 2.5vw, 36px);
+  position: relative; overflow: hidden;
+  transition: background .3s;
+  cursor: default;
+}
+.svc-card::after {
+  content: ''; position: absolute;
+  left: 0; bottom: 0; right: 0; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s ease;
+}
+.svc-card:hover { background: var(--bg-card); }
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-num {
+  font-family: var(--f-display); font-size: 58px;
+  color: rgba(201,168,76,.09); line-height: 1;
+  margin-bottom: 14px;
+  transition: color .3s;
+}
+.svc-card:hover .svc-num { color: rgba(201,168,76,.18); }
+/* CSS service icons */
+.svc-ico { width: 44px; height: 44px; margin-bottom: 18px; position: relative; }
+/* Scissors */
+.ico-scissors::before, .ico-scissors::after {
+  content: ''; position: absolute;
+  width: 30px; height: 3px; background: var(--gold);
+  top: 50%; left: 50%; transform-origin: 0 50%;
+}
+.ico-scissors::before { transform: translate(-50%,-50%) rotate(-18deg); }
+.ico-scissors::after  { transform: translate(-50%,-50%) rotate(18deg); }
+/* Beard / face oval */
+.ico-beard {
+  width: 30px; height: 34px;
+  border: 2px solid var(--gold); border-radius: 50% 50% 42% 42%;
+  position: absolute; top: 0; left: 0;
+}
+.ico-beard::after {
+  content: ''; position: absolute;
+  bottom: -9px; left: -4px; right: -4px; height: 12px;
+  background: var(--gold); border-radius: 0 0 50% 50%;
+}
+/* Straight razor */
+.ico-razor {
+  width: 36px; height: 10px;
+  border: 2px solid var(--gold);
+  position: absolute; top: 50%; left: 0;
+  transform: translateY(-50%);
+}
+.ico-razor::after {
+  content: ''; position: absolute;
+  right: -12px; top: -4px;
+  width: 12px; height: 18px;
+  background: var(--gold);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+/* Diamond */
+.ico-diamond {
+  position: absolute; top: 50%; left: 50%;
+  width: 26px; height: 26px;
+  background: var(--gold);
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+.ico-diamond::after {
+  content: ''; position: absolute; inset: 5px;
+  background: var(--bg-alt);
+}
+.svc-name {
+  font-family: var(--f-display); font-size: 30px;
+  color: var(--text); margin-bottom: 8px; line-height: 1;
+}
+.svc-desc { font-size: 14px; font-style: italic; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+.svc-price { font-family: var(--f-display); font-size: 38px; color: var(--gold); line-height: 1; }
+.svc-price sup { font-family: var(--f-head); font-size: 12px; font-weight: 400; color: var(--muted); letter-spacing: .08em; }
+
+/* ===== MASTERS ===== */
+#masters { padding: var(--pad) 0; }
+.mst-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 36px);
+}
+.mst-card { position: relative; }
+/* Avatar block */
+.mst-ava {
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+  position: relative; overflow: hidden;
+  margin-bottom: 18px;
+}
+/* Per-card tinted gradient backgrounds */
+.mst-card:nth-child(1) .mst-ava { background: linear-gradient(155deg, #1c1408 0%, #0d0d0d 55%, #140e04 100%); }
+.mst-card:nth-child(2) .mst-ava { background: linear-gradient(155deg, #0e1320 0%, #0d0d0d 55%, #080d18 100%); }
+.mst-card:nth-child(3) .mst-ava { background: linear-gradient(155deg, #160c16 0%, #0d0d0d 55%, #100810 100%); }
+/* Geometric person silhouette */
+.ava-fig { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
+.ava-head {
+  width: 54px; height: 62px;
+  border-radius: 50% 50% 36% 36%;
+  margin: 0 auto;
+}
+.mst-card:nth-child(1) .ava-head { background: linear-gradient(180deg, #3a2208 0%, #1a1004 100%); }
+.mst-card:nth-child(2) .ava-head { background: linear-gradient(180deg, #0c1a2e 0%, #060e1c 100%); }
+.mst-card:nth-child(3) .ava-head { background: linear-gradient(180deg, #2c0a26 0%, #180616 100%); }
+.ava-body {
+  width: 84px; height: 136px;
+  clip-path: polygon(11% 0%, 89% 0%, 100% 100%, 0% 100%);
+  margin: 0 auto;
+}
+.mst-card:nth-child(1) .ava-body { background: linear-gradient(180deg, #281a08 0%, #0d0d0d 100%); }
+.mst-card:nth-child(2) .ava-body { background: linear-gradient(180deg, #091024 0%, #0d0d0d 100%); }
+.mst-card:nth-child(3) .ava-body { background: linear-gradient(180deg, #1e0820 0%, #0d0d0d 100%); }
+/* Hover gold border */
+.mst-ava::after {
+  content: ''; position: absolute; inset: 0;
+  border: 0px solid var(--gold);
+  transition: border-width .3s;
+}
+.mst-card:hover .mst-ava::after { border-width: 2px; }
+/* Experience badge */
+.mst-badge {
+  position: absolute; top: 18px; right: 18px;
+  width: 52px; height: 52px;
+  background: var(--gold);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 2;
+}
+.mst-badge-n { font-family: var(--f-display); font-size: 20px; color: var(--bg); line-height: 1; }
+.mst-badge-l { font-family: var(--f-head); font-size: 7px; font-weight: 700; letter-spacing: .08em; color: var(--bg); text-transform: uppercase; }
+.mst-name { font-family: var(--f-display); font-size: 28px; color: var(--text); margin-bottom: 4px; }
+.mst-role {
+  font-family: var(--f-head); font-size: 10px; font-weight: 600;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.mst-spec { font-size: 15px; font-style: italic; color: var(--muted); }
+
+/* ===== BOOKING ===== */
+#booking {
+  padding: var(--pad) 0;
+  background: var(--bg-alt);
+  position: relative; overflow: hidden;
+}
+#booking::before, #booking::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+#booking::before { top: 0; }
+#booking::after  { bottom: 0; }
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 6vw, 100px);
+  align-items: start;
+}
+.book-text h2 {
+  font-family: var(--f-display);
+  font-size: clamp(40px, 5.5vw, 74px);
+  line-height: 1; color: var(--text); margin-bottom: 16px;
+}
+.book-text h2 em { font-style: normal; color: var(--gold); }
+.book-text p { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
+.book-info { display: flex; flex-direction: column; gap: 16px; }
+.book-info-row {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--f-head); font-size: 11px;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted);
+}
+.book-dot { width: 6px; height: 6px; background: var(--gold); flex-shrink: 0; }
+/* Form */
+.form { display: flex; flex-direction: column; gap: 22px; }
+.field label {
+  display: block;
+  font-family: var(--f-head); font-size: 10px; font-weight: 600;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.field input, .field select {
+  width: 100%; background: transparent; border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  font-family: var(--f-body); font-size: 18px; color: var(--text);
+  outline: none; appearance: none; -webkit-appearance: none;
+  transition: border-color .3s;
+}
+.field input:focus, .field select:focus { border-bottom-color: var(--gold); }
+.field input::placeholder { color: var(--muted); font-style: italic; }
+.field select option { background: #1a1a1a; color: var(--text); }
+.sel-wrap { position: relative; }
+.sel-wrap::after {
+  content: '▾'; position: absolute; right: 0; top: 55%;
+  transform: translateY(-50%); color: var(--gold); pointer-events: none;
+}
+.form-btn {
+  width: 100%; border: none; cursor: pointer;
+  background: var(--gold); color: var(--bg);
+  font-family: var(--f-head); font-size: 12px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 20px; margin-top: 8px;
+  position: relative; overflow: hidden; transition: color .3s;
+}
+.form-btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-lt);
+  transform: translateY(100%); transition: transform .3s;
+}
+.form-btn:hover::after { transform: translateY(0); }
+.form-btn span { position: relative; z-index: 1; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--bg);
+  padding: clamp(40px, 6vw, 80px) 0 clamp(20px, 3vw, 36px);
+  border-top: 1px solid var(--border);
+}
+.ft-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: clamp(28px, 4vw, 60px);
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.ft-logo { font-family: var(--f-display); font-size: clamp(30px, 4.5vw, 54px); color: var(--gold); line-height: 1; margin-bottom: 14px; }
+.ft-desc { font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.6; max-width: 260px; }
+.ft-social { display: flex; gap: 10px; margin-top: 22px; }
+.soc-a {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.soc-a:hover { border-color: var(--gold); color: var(--gold); }
+.ft-col-t {
+  font-family: var(--f-head); font-size: 10px; font-weight: 600;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px;
+}
+.ft-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ft-list a { font-size: 15px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.ft-list a:hover { color: var(--text); }
+.ft-addr { font-size: 15px; color: var(--muted); font-style: normal; line-height: 1.9; }
+.ft-addr a { color: inherit; text-decoration: none; }
+.ft-bot {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+  padding-top: 22px; border-top: 1px solid var(--border);
+}
+.ft-copy { font-family: var(--f-head); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo { aspect-ratio: 16/9; max-height: 280px; }
+  .book-grid   { grid-template-columns: 1fr; }
+  .ft-top      { grid-template-columns: 1fr 1fr; }
+  .ft-top > :first-child { grid-column: 1/-1; }
+}
+@media (max-width: 640px) {
+  .nav-links, .nav-btn { display: none; }
+  .burger { display: flex; }
+  .nav-links.open {
+    display: flex; flex-direction: column; gap: 18px;
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: var(--bg); padding: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-orn { display: none; }
+  .hero-stats { gap: 24px; margin-top: 48px; }
+  .mst-grid { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .ft-top { grid-template-columns: 1fr; }
+  .ft-bot { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <div class="wrap">
+    <a href="#" class="nav-logo">IRON &amp; BLADE</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#masters">Мастера</a></li>
+      <li><a href="#booking">Запись</a></li>
+    </ul>
+    <a href="#booking" class="nav-btn">Записаться</a>
+    <button class="burger" id="burger" aria-label="Открыть меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="hero-kicker reveal">Барбершоп · Москва · с 2015</p>
+      <h1 class="hero-h1 reveal">IRON<em>&amp; BLADE</em></h1>
+      <div class="hero-div reveal"><i></i></div>
+      <p class="hero-sub reveal">Где мастерство становится традицией,<br>а стрижка — ритуалом.</p>
+      <div class="hero-actions reveal">
+        <a href="#booking" class="btn-gold"><span>Записаться</span></a>
+        <a href="#services" class="btn-ghost">Наши услуги</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div><div class="stat-n">9+</div><div class="stat-l">Лет опыта</div></div>
+        <div><div class="stat-n">3К+</div><div class="stat-l">Клиентов</div></div>
+        <div><div class="stat-n">3</div><div class="stat-l">Мастера</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Geometric ornament -->
+  <div class="hero-orn" aria-hidden="true">
+    <div class="orn-c"></div>
+    <div class="orn-c"></div>
+    <div class="orn-c"></div>
+    <div class="orn-x"></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <!-- CSS-only photo placeholder -->
+      <div class="about-photo reveal">
+        <div class="ph-fig">
+          <div class="ph-head"></div>
+          <div class="ph-body"></div>
+          <div class="ph-shadow"></div>
+        </div>
+        <div class="ph-tag">Iron &amp; Blade · 2015</div>
+        <div class="ph-frame"></div>
+      </div>
+
+      <div class="reveal">
+        <p class="eyebrow">О нас</p>
+        <h2 class="sec-title">МЫ <span style="color:var(--gold)">ДЕЛАЕМ</span><br>МУЖЧИН</h2>
+        <div class="gold-bar"></div>
+        <p class="about-body">
+          <strong>Iron &amp; Blade</strong> — не просто барбершоп. Это место, где старые традиции
+          классического бритья встречаются с современным видением мужского стиля.
+          Мы работаем с теми, кто знает цену деталям.
+        </p>
+        <p class="about-body">
+          Каждый визит — это ритуал. Горячее полотенце, прямой станок,
+          безупречная стрижка. Никаких компромиссов, только результат.
+        </p>
+        <div class="about-vals">
+          <div class="aval">
+            <div class="aval-bar"></div>
+            <div>
+              <div class="aval-title">Мастерство</div>
+              <div class="aval-sub">Более 10 лет практики каждого мастера</div>
+            </div>
+          </div>
+          <div class="aval">
+            <div class="aval-bar"></div>
+            <div>
+              <div class="aval-title">Традиция</div>
+              <div class="aval-sub">Классические техники, современный результат</div>
+            </div>
+          </div>
+          <div class="aval">
+            <div class="aval-bar"></div>
+            <div>
+              <div class="aval-title">Атмосфера</div>
+              <div class="aval-sub">Место, куда хочется возвращаться</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-hdr reveal">
+      <p class="eyebrow">Прайс-лист</p>
+      <h2 class="sec-title">НАШИ УСЛУГИ</h2>
+    </div>
+    <div class="svc-grid">
+
+      <article class="svc-card reveal">
+        <div class="svc-num">01</div>
+        <div class="svc-ico ico-scissors"></div>
+        <h3 class="svc-name">Стрижка</h3>
+        <p class="svc-desc">Классика или авангард — подберём форму под тебя.</p>
+        <div class="svc-price">1 200 <sup>руб</sup></div>
+      </article>
+
+      <article class="svc-card reveal">
+        <div class="svc-num">02</div>
+        <div class="svc-ico"><div class="ico-beard"></div></div>
+        <h3 class="svc-name">Борода</h3>
+        <p class="svc-desc">Коррекция, моделирование и уход — всё включено.</p>
+        <div class="svc-price">800 <sup>руб</sup></div>
+      </article>
+
+      <article class="svc-card reveal">
+        <div class="svc-num">03</div>
+        <div class="svc-ico"><div class="ico-razor"></div></div>
+        <h3 class="svc-name">Бритьё</h3>
+        <p class="svc-desc">Прямым станком, с горячим полотенцем и пеной.</p>
+        <div class="svc-price">1 000 <sup>руб</sup></div>
+      </article>
+
+      <article class="svc-card reveal">
+        <div class="svc-num">04</div>
+        <div class="svc-ico"><div class="ico-diamond"></div></div>
+        <h3 class="svc-name">Комплекс</h3>
+        <p class="svc-desc">Стрижка + борода + бритьё. Полный джентльменский набор.</p>
+        <div class="svc-price">2 500 <sup>руб</sup></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== MASTERS ===== -->
+<section id="masters">
+  <div class="wrap">
+    <div class="sec-hdr reveal">
+      <p class="eyebrow">Команда</p>
+      <h2 class="sec-title">НАШИ МАСТЕРА</h2>
+    </div>
+    <div class="mst-grid">
+
+      <article class="mst-card reveal">
+        <div class="mst-ava">
+          <div class="ava-fig">
+            <div class="ava-head"></div>
+            <div class="ava-body"></div>
+          </div>
+          <div class="mst-badge"><div class="mst-badge-n">12</div><div class="mst-badge-l">лет</div></div>
+        </div>
+        <h3 class="mst-name">АЛЕКСЕЙ</h3>
+        <p class="mst-role">Старший барбер</p>
+        <p class="mst-spec">Классические стрижки, классическое бритьё</p>
+      </article>
+
+      <article class="mst-card reveal">
+        <div class="mst-ava">
+          <div class="ava-fig">
+            <div class="ava-head"></div>
+            <div class="ava-body"></div>
+          </div>
+          <div class="mst-badge"><div class="mst-badge-n">8</div><div class="mst-badge-l">лет</div></div>
+        </div>
+        <h3 class="mst-name">ДМИТРИЙ</h3>
+        <p class="mst-role">Барбер · Стилист</p>
+        <p class="mst-spec">Авангардные формы, работа с бородой</p>
+      </article>
+
+      <article class="mst-card reveal">
+        <div class="mst-ava">
+          <div class="ava-fig">
+            <div class="ava-head"></div>
+            <div class="ava-body"></div>
+          </div>
+          <div class="mst-badge"><div class="mst-badge-n">6</div><div class="mst-badge-l">лет</div></div>
+        </div>
+        <h3 class="mst-name">ИГОРЬ</h3>
+        <p class="mst-role">Барбер</p>
+        <p class="mst-spec">Fade, скины, татуировочный стиль</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING ===== -->
+<section id="booking">
+  <div class="wrap">
+    <div class="book-grid">
+
+      <div class="reveal">
+        <p class="eyebrow">Запись</p>
+        <h2>ЗАЙМИ СВОЁ<br><em>МЕСТО</em></h2>
+        <div class="gold-bar"></div>
+        <p>Заполни форму, и мы свяжемся для подтверждения времени.<br>Работаем ежедневно с 10:00 до 21:00.</p>
+        <div class="book-info">
+          <div class="book-info-row"><div class="book-dot"></div>Пн–Вс: 10:00 — 21:00</div>
+          <div class="book-info-row"><div class="book-dot"></div>ул. Кузнецкий мост, 12, Москва</div>
+          <div class="book-info-row"><div class="book-dot"></div>+7 (495) 000-00-00</div>
+        </div>
+      </div>
+
+      <form class="form reveal" action="#" method="post" id="bookForm" novalidate>
+        <div class="field">
+          <label for="fname">Ваше имя</label>
+          <input type="text" id="fname" name="name" placeholder="Как к вам обращаться?" required>
+        </div>
+        <div class="field">
+          <label for="fphone">Телефон</label>
+          <input type="tel" id="fphone" name="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="field">
+          <label for="fservice">Услуга</label>
+          <div class="sel-wrap">
+            <select id="fservice" name="service" required>
+              <option value="" disabled selected>Выберите услугу</option>
+              <option value="haircut">Стрижка — 1 200 руб.</option>
+              <option value="beard">Борода — 800 руб.</option>
+              <option value="shave">Бритьё — 1 000 руб.</option>
+              <option value="complex">Комплекс — 2 500 руб.</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="form-btn"><span id="btnTxt">Записаться</span></button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="ft-top">
+
+      <div>
+        <div class="ft-logo">IRON &amp; BLADE</div>
+        <p class="ft-desc">Барбершоп для тех, кто ценит мастерство и традиции классического ухода.</p>
+        <div class="ft-social">
+          <!-- Instagram -->
+          <a href="#" class="soc-a" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <!-- VK -->
+          <a href="#" class="soc-a" aria-label="ВКонтакте">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm3.29 13.3h-1.64c-.62 0-.81-.49-1.93-1.61-1-.97-1.44-1.1-1.68-1.1-.27 0-.35.08-.35.46v1.47c0 .33-.1.53-1 .53-1.47 0-3.1-.89-4.24-2.55-1.72-2.42-2.19-4.23-2.19-4.6 0-.24.08-.46.46-.46h1.64c.35 0 .48.16.61.54.68 1.95 1.81 3.66 2.28 3.66.17 0 .25-.08.25-.52V8.55c-.06-1.02-.6-1.1-.6-1.46 0-.19.16-.38.41-.38h2.58c.3 0 .4.16.4.51v2.77c0 .3.13.4.22.4.17 0 .32-.1.64-.43 1-1.11 1.71-2.82 1.71-2.82.1-.19.27-.38.62-.38h1.64c.49 0 .6.25.49.54-.2 1-.2.97-1.09 2.18l-.47.62c-.35.46-.27.65.08 1.05.28.3 1.2 1.22 1.2 1.22.6.6.86 1.12.86 1.47 0 .22-.13.46-.45.46z"/>
+            </svg>
+          </a>
+          <!-- Telegram -->
+          <a href="#" class="soc-a" aria-label="Telegram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8-1.68 7.93c-.12.56-.47.7-.95.43l-2.6-1.92-1.26 1.21c-.14.14-.26.26-.53.26l.19-2.64 4.84-4.37c.21-.19-.05-.29-.32-.1L7.93 14.3 5.35 13.5c-.56-.18-.58-.56.12-.83l8.92-3.44c.47-.17.88.12.73.82z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <p class="ft-col-t">Навигация</p>
+        <ul class="ft-list">
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#masters">Мастера</a></li>
+          <li><a href="#booking">Запись</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="ft-col-t">Контакты</p>
+        <address class="ft-addr">
+          ул. Кузнецкий мост, 12<br>
+          Москва, 101000<br><br>
+          <a href="tel:+74950000000">+7 (495) 000-00-00</a><br>
+          <a href="mailto:hello@ironblade.ru">hello@ironblade.ru</a>
+        </address>
+      </div>
+
+    </div>
+    <div class="ft-bot">
+      <p class="ft-copy">© 2024 Iron &amp; Blade. Все права защищены.</p>
+      <p class="ft-copy">Сделано с уважением к ремеслу</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== Nav: sticky + mobile toggle =====
+const nav = document.getElementById('nav');
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('stuck', window.scrollY > 50);
+}, { passive: true });
+
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  const [a, b, c] = burger.querySelectorAll('span');
+  a.style.transform = open ? 'rotate(45deg) translate(5px,5px)' : '';
+  b.style.opacity   = open ? '0' : '1';
+  c.style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = '1'; });
+  });
+});
+
+// ===== Scroll-reveal with staggered delay =====
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    // Stagger siblings inside grid containers
+    const parent = entry.target.parentElement;
+    const siblings = [...parent.querySelectorAll('.reveal')];
+    const idx = siblings.indexOf(entry.target);
+    const isGrid = parent.classList.contains('svc-grid') ||
+                   parent.classList.contains('mst-grid') ||
+                   parent.classList.contains('about-vals');
+    entry.target.style.transitionDelay = isGrid ? `${idx * 0.1}s` : '0s';
+    entry.target.classList.add('in');
+    io.unobserve(entry.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Hero elements fire immediately on load
+window.addEventListener('load', () => {
+  document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), i * 120);
+  });
+});
+
+// ===== Phone masking =====
+const ph = document.getElementById('fphone');
+ph.addEventListener('input', () => {
+  let d = ph.value.replace(/\D/g, '');
+  if (d[0] === '7' || d[0] === '8') d = d.slice(1);
+  d = d.slice(0, 10);
+  let v = '+7 ';
+  if (d.length > 0) v += '(' + d.slice(0,3);
+  if (d.length >= 3) v += ') ' + d.slice(3,6);
+  if (d.length >= 6) v += '-' + d.slice(6,8);
+  if (d.length >= 8) v += '-' + d.slice(8,10);
+  ph.value = v;
+});
+
+// ===== Form submit =====
+document.getElementById('bookForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = document.getElementById('btnTxt');
+  btn.textContent = 'Отправляем…';
+  setTimeout(() => {
+    btn.textContent = '✓ Заявка принята!';
+    e.target.reset();
+    setTimeout(() => { btn.textContent = 'Записаться'; }, 3500);
+  }, 1000);
+});
+</script>
+</body>
+</html>
